@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable react/jsx-filename-extension */
@@ -29,12 +28,6 @@ function Form({
   classOfNext,
   classOfAfterSubmit,
 
-  focusOfFrom,
-  focusOfTo,
-  focusOfItem,
-  focusOfDateOption,
-  focusOfFirstName,
-
   handleChange,
   handleSelectionChange,
   handleKeyPress,
@@ -55,11 +48,10 @@ function Form({
             placeholder="Pick up location..."
             onChange={handleChange}
             onKeyPress={handleKeyPress}
-            autoFocus={focusOfFrom}
             required
           />
         </label>
-        <label className={classOfTo}>
+        <label id="label-to" className={classOfTo}>
           I WANT TO MOVE TO:
           <br />
           <input
@@ -69,14 +61,13 @@ function Form({
             placeholder="Drop off location..."
             onChange={handleChange}
             onKeyPress={handleKeyPress}
-            autoFocus={focusOfTo}
             required
           />
         </label>
         <label className={classOfItem}>
           I WANT TO MOVE:
           <br />
-          <select name="item" id="item" onChange={handleSelectionChange} autoFocus={focusOfItem}>
+          <select name="item" id="item" onChange={handleSelectionChange}>
             <option value="default" defaultChecked>Choose Your Moving Item Size</option>
             <option value="size-i">Size i</option>
             <option value="size-ii">Size ii</option>
@@ -87,7 +78,7 @@ function Form({
         <label className={classOfDate}>
           I WANT TO MOVE ON:
           <br />
-          <select name="dateOption" onChange={handleSelectionChange} autoFocus={focusOfDateOption}>
+          <select name="dateOption" onChange={handleSelectionChange}>
             <option value="default" defaultChecked>Choose Your Moving Date</option>
             <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
             <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
@@ -137,7 +128,6 @@ function Form({
             placeholder="First name..."
             onChange={handleChange}
             onKeyPress={handleKeyPress}
-            autoFocus={focusOfFirstName}
             required
           />
           <input

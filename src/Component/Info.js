@@ -31,19 +31,13 @@ class Info extends React.Component {
     classOfSubmit: 'none',
     classOfNext: 'none',
     classOfAfterSubmit: 'none',
-
-    focusOfFrom: true,
-    focusOfTo: false,
-    focusOfItem: false,
-    focusOfDateOption: false,
-    focusOfFirstName: false,
   };
 
   handleChange = e => {
     const name = e.target.name;
     this.setState({
       [name]: e.target.value,
-      classOfNext: 'next',
+      classOfNext: this.state.classOfSubmit === 'none' ? 'next' : 'none',
     });
   }
 
@@ -56,15 +50,11 @@ class Info extends React.Component {
     if (name === 'item') {
       this.setState({
         classOfDate: '',
-        focusOfItem: false,
-        focusOfDateOption: true,
       });
     } else if (name === 'dateOption') {
       this.setState({
         classOfName: '',
         classOfCustomizedDate: value === 'none-works' ? '' : this.state.classOfCustomizedDate,
-        focusOfFirstName: true,
-        focusOfDateOption: false,
       });
     }
   }
@@ -77,17 +67,12 @@ class Info extends React.Component {
         this.setState({
           queryFrom: value,
           classOfTo: '',
-          focusOfFrom: false,
-          focusOfTo: true,
         });
       } else if (name === 'to') {
         this.setState({
           queryTo: value,
           classOfItem: '',
-          focusOfTo: false,
-          focusOfItem: true, // This is not working?
         });
-        document.querySelector('#item').focus(); // This is not working?
       } else if (name === 'phone' || name === 'firstName' || name === 'lastName') {
         this.setState({
           classOfSubmit: '',
@@ -145,12 +130,6 @@ class Info extends React.Component {
           classOfSubmit={this.state.classOfSubmit}
           classOfNext={this.state.classOfNext}
           classOfAfterSubmit={this.state.classOfAfterSubmit}
-
-          focusOfFrom={this.state.focusOfFrom}
-          focusOfTo={this.state.focusOfTo}
-          focusOfItem={this.state.focusOfItem}
-          focusOfDateOption={this.state.focusOfDateOption}
-          focusOfFirstName={this.state.focusOfFirstName}
 
           handleChange={this.handleChange}
           handleSelectionChange={this.handleSelectionChange}

@@ -49,7 +49,9 @@ class App extends React.Component {
       this.setState({
         navClass: 'dark',
       });
-      document.querySelector('#input-from').focus(); // This is a problem
+      if (document.querySelector('#label-to').className === 'none') {
+        document.querySelector('#input-from').focus(); // This is a problem
+      }
     } else {
       this.setState({
         navClass: '',

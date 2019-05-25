@@ -65,7 +65,7 @@ nav {
   position: fixed;
   width: 100vw;
   font-size: $font-size-small;
-  padding: 20px 40px;
+  padding: 23px 40px;
   z-index: 10;
 
   span {
@@ -154,19 +154,14 @@ nav {
   }
 
   input, select {
+    -webkit-appearance: none;
     margin-top: 5px;
+    padding-left: 8px;
     width: 300px;
     height: 35px;
     border: 1px solid $text-color-dark;
-  }
-
-  input {
-    padding-left: 10px;
-  }
-
-  select {
-    padding-left: 5px;
-    background-color: $text-color-light;
+    border-radius: 0;
+    background-color: white;
   }
 
   .date {
