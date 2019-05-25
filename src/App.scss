@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+$text-color-dark: black;
+$text-color-light: white;
+$font-size-small: 11px;
+$transition-in: all 0.3s ease-in;
+$transition-out: all 0.3s ease-out;
+
+* {
+  /* outline: 0.5px solid black; */
+  font-family: Open Sans;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.fp-tableCell {
+  vertical-align: 0;
+}
+
+#background {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-image: url(./background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#intro {
+  width: 40%;
+  position: relative;
+  left: 150px;
+  top: 40vh;
+  color: $text-color-light;
+
+  p {
+    font-size: $font-size-small;
+  }
+
+  h1 {
+    font-family: Open Sans;
+    margin: 20px 0;
+    font-size: 40px;
+  }
+
+  button {
+    background-color: transparent;
+    width: 100px;
+    height: 30px;
+    border: 1px solid $text-color-light;
+    border-radius: 2px;
+    color: $text-color-light;
+    transition: $transition-out;
+    
+    &:hover {
+      cursor: pointer;
+      background-color: #5e5e5e;
+      transition: $transition-in;
+    }
+  }
+}
+
+nav {
+  position: fixed;
+  width: 100vw;
+  font-size: $font-size-small;
+  padding: 20px 40px;
+  z-index: 10;
+
+  span {
+    display: inline-block;
+    color: $text-color-light;
+  }
+
+  ul {
+    float: right;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      margin-left: 60px;
+      color: $text-color-light;
+
+      $height: 1px;
+      $space: 2px;
+      $color: #adadad;
+
+      cursor: pointer;
+      background: linear-gradient(
+        to right, 
+        $color 0%,
+        $color 100%
+        ) center bottom no-repeat; 
+      transition: $transition-out;
+      padding-bottom: $height + $space;
+      background-size: 0 $height;
+
+      &:hover, &.active {
+        background-size: 100% $height; 
+        transition: $transition-in
+      }
+    }
+  }
+}
+
+.dark {
+  span, ul li {
+    color: $text-color-dark;
+  }
+}
+
+#info {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+#form-container, #map-container {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+}
+
+#map-container {
+  float: left;
+  padding: 65px 70px 40px 40px;
+}
+
+#form-container {
+  float: right;
+  display: flex;
+  align-items: center;
+  padding: 75px 150px;
+}
+
+#map {
+  height: 100%;
+  box-shadow: 2px 2px 20px grey;
+  transition: $transition-out;
+
+  &:hover {
+    box-shadow: 8px 8px 40px grey;
+    transition: $transition-in;
+  }
+}
+
+#form {
+  label {
+    display: block;
+    margin: 20px 0;
+    font-size: $font-size-small;
+  }
+
+  input, select {
+    margin-top: 5px;
+    width: 300px;
+    height: 35px;
+    border: 1px solid $text-color-dark;
+  }
+
+  input {
+    padding-left: 10px;
+  }
+
+  select {
+    padding-left: 5px;
+    background-color: $text-color-light;
+  }
+
+  .date {
+    padding-left: 40px;
+
+    &-span {
+      position: relative;
+      right: 291px;
+    }
+  }
+
+  .time-start {
+    margin-right: -29px;
+    width: 130px;
+    padding-left: 45px;
+
+    &-span {
+      position: relative;
+      right: 92px;
+    }
+  }
+
+  .time-end {
+    margin-right: -29px;
+    width: 113px;
+    padding-left: 27px;
+
+    &-span {
+      position: relative;
+      right: 76px;
+    }
+  }
+
+  #quote {
+    position: relative;
+    left: 20px;
+  }
+
+  .name {
+    width: 90px;
+    margin-right: 6px;
+  }
+
+  .phone {
+    width: 108px;
+  }
+
+  .submit {
+    background-color: #f5f5f5;
+    transition: $transition-out;
+
+    &:hover {
+      background-color: #c4c4c4;
+      transition: $transition-in;
+    }
+  }
+}
+
+.none {
+  display: none !important;
+}
+
+.next {
+  text-align: center;
+  color: #afafaf;
+  &-ani {
+    font-size: 15px;
+    text-align: center;
+    animation-name: nextAni;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    position: relative;
+  }
+}
+
+@keyframes nextAni {
+  0% {
+    top: 0px;
+  }
+  50% {
+    top: 30px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+#thanks {
+  font-size: $font-size-small;
+  position: relative;
+  bottom: 200px;
+}
+
