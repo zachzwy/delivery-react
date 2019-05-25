@@ -42,7 +42,6 @@ function Form({
           <br />
           <input
             type="text"
-            id="input-from"
             name="from"
             value={from}
             placeholder="Pick up location..."
@@ -51,7 +50,7 @@ function Form({
             required
           />
         </label>
-        <label id="label-to" className={classOfTo}>
+        <label className={classOfTo}>
           I WANT TO MOVE TO:
           <br />
           <input
@@ -161,7 +160,7 @@ function Form({
           />
         </label>
         <label className={classOfNext}>
-          Hit Enter to move on
+          {((classOfItem === '' || classOfDate === '') && classOfName === 'none') ? 'Select to move on' : 'Enter to move on'}
           <div className='next-ani'>&#8595;</div>
         </label>
       </form>

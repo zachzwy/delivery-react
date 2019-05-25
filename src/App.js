@@ -35,6 +35,8 @@ class App extends React.Component {
     navClass: '',
   };
 
+  refFrom = React.createRef();
+
   componentDidMount() {
     window.addEventListener('transitionend', this.handleTrans);
   }
@@ -49,9 +51,6 @@ class App extends React.Component {
       this.setState({
         navClass: 'dark',
       });
-      if (document.querySelector('#label-to').className === 'none') {
-        document.querySelector('#input-from').focus(); // This is a problem
-      }
     } else {
       this.setState({
         navClass: '',
