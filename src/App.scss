@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300|Lora&display=swap');
 
 $text-color-dark: black;
 $text-color-light: white;
 $font-size-small: 11px;
 $transition-in: all 0.3s ease-in;
 $transition-out: all 0.3s ease-out;
+$titleFont: 'Cormorant Garamond', 'serif';
+$titleSize: 45px;
 
 * {
   /* outline: 0.5px solid black; */
@@ -31,7 +34,7 @@ $transition-out: all 0.3s ease-out;
   width: 40%;
   position: relative;
   left: 150px;
-  // top: 40vh;
+  top: 38vh;
   color: $text-color-light;
 
   p {
@@ -39,9 +42,9 @@ $transition-out: all 0.3s ease-out;
   }
 
   h1 {
-    font-family: Open Sans;
+    font-family: $titleFont;
     margin: 20px 0;
-    font-size: 40px;
+    font-size: $titleSize;
   }
 
   button {
