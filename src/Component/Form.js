@@ -33,6 +33,8 @@ function Form({
   handleKeyPress,
   handleClickSubmit,
   handleSubmit,
+
+  fromDataList,
 }) {
   return (
     <div id="form-container">
@@ -40,11 +42,15 @@ function Form({
         <label className={classOfFrom}>
           I WANT TO MOVE FROM:
           <br />
+          <datalist id="fromDataList">
+            {fromDataList && fromDataList.map(item => <option key={item} value={item} />)}
+          </datalist>
           <input
             type="text"
             name="from"
             value={from}
             placeholder="Pick up location..."
+            list="fromDataList"
             onChange={handleChange}
             onKeyPress={handleKeyPress}
             required
