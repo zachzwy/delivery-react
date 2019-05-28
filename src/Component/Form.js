@@ -205,5 +205,5 @@ Form.propTypes = {
   handleClickSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 
-  fromDataList: PropTypes.object.isRequired,
+  fromDataList: PropTypes.object,
 };

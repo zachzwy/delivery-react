@@ -155,13 +155,22 @@ nav {
 
 #map {
   height: 100%;
-  box-shadow: 2px 2px 20px grey;
+  box-shadow: 5px 5px 20px grey;
   transition: $transition-out;
 
   &:hover {
-    box-shadow: 10px 10px 50px grey;
+    box-shadow: 15px 15px 50px grey;
     transition: $transition-in;
   }
+}
+
+.ctrl-zoom {
+  color: #cecece;
+  position: absolute;
+  top: 67px;
+  left: 45px;
+  font-size: $font-size-small;
+  z-index: 10;
 }
 
 #form {

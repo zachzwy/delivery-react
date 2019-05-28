@@ -15,5 +15,5 @@ export default function Intro({ fullpageApi }) {
 }
 
 Intro.propTypes = {
-  fullpageApi: PropTypes.object.isRequired,
+  fullpageApi: PropTypes.object,
 };
