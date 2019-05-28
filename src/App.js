@@ -1,41 +1,15 @@
 import React from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 
+import Nav from './Component/Nav';
+import Intro from './Component/Intro';
 import Info from './Component/Info';
 import './App.scss';
-
-function Intro({ fullpageApi }) {
-  return (
-    <div id="intro">
-      <p>EASY MOVE</p>
-      <h1>We save your moving cost by pairing you with others and sharing Truck</h1>
-      <button
-        id="start-button"
-        onClick={() => fullpageApi.moveSectionDown()}
-      >START</button>
-    </div>
-  );
-}
-
-function Nav({ navClass }) {
-  return (
-    <nav className={navClass}>
-      <span >MY SETTLE DOWN</span>
-      <ul>
-        <li><a>LOGIN</a></li>
-        <li><a>EXPLORE</a></li>
-        <li><a>ABOUT</a></li>
-      </ul>
-    </nav>
-  );
-}
 
 class App extends React.Component {
   state = {
     navClass: '',
   };
-
-  refFrom = React.createRef();
 
   componentDidMount() {
     window.addEventListener('transitionend', this.handleTrans);
@@ -47,7 +21,7 @@ class App extends React.Component {
 
   handleTrans = () => {
     const bodyDOM = document.querySelector('body');
-    if (bodyDOM.className === 'fp-viewing-1') {
+    if (bodyDOM.className === 'fp-viewing-secondPage') {
       this.setState({
         navClass: 'dark',
       });
@@ -63,9 +37,7 @@ class App extends React.Component {
       <>
         <Nav navClass={this.state.navClass}/>
         <ReactFullpage
-          // anchors={['firstPage', 'secondPage', 'thirdPage']}
-          // scrollOverflow={true}
-          // navigation
+          anchors={['firstPage', 'secondPage']}
           render={({ state, fullpageApi }) => {
             return (
               <>

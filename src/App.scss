@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300|Lora&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Cormorant+Garamond:300|Lora&display=swap');
 
 $text-color-dark: black;
 $text-color-light: white;
@@ -17,8 +16,69 @@ $titleSize: 45px;
   box-sizing: border-box;
 }
 
+// ------------------ nav starts here-------------------
+
+.dark {
+  span, ul li a {
+    color: $text-color-dark;
+  }
+}
+
+nav {
+  position: fixed;
+  width: 100vw;
+  font-size: $font-size-small;
+  padding: 23px 40px;
+  z-index: 10;
+
+  span {
+    display: inline-block;
+    color: $text-color-light;
+  }
+
+  ul {
+    float: right;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      margin-left: 60px;
+
+      $height: 1px;
+      $space: 2px;
+      $color: #adadad;
+
+      cursor: pointer;
+      background: linear-gradient(
+        to right, 
+        $color 0%,
+        $color 100%
+        ) center bottom no-repeat; 
+      transition: $transition-out;
+      padding-bottom: $height + $space;
+      background-size: 0 $height;
+
+      &:hover, &.active {
+        background-size: 100% $height; 
+        transition: $transition-in
+      }
+
+      a {
+        color: $text-color-light;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+
+
+// ------------------ nav ends here-------------------
+
+// ------------------ firstPage starts here-------------
+
 .fp-tableCell {
-  vertical-align: 0;
+  vertical-align: 0 !important;
 }
 
 #background {
@@ -64,54 +124,9 @@ $titleSize: 45px;
   }
 }
 
-nav {
-  position: fixed;
-  width: 100vw;
-  font-size: $font-size-small;
-  padding: 23px 40px;
-  z-index: 10;
+// ------------------ firstPage ends here-------------
 
-  span {
-    display: inline-block;
-    color: $text-color-light;
-  }
-
-  ul {
-    float: right;
-    list-style-type: none;
-
-    li {
-      display: inline-block;
-      margin-left: 60px;
-      color: $text-color-light;
-
-      $height: 1px;
-      $space: 2px;
-      $color: #adadad;
-
-      cursor: pointer;
-      background: linear-gradient(
-        to right, 
-        $color 0%,
-        $color 100%
-        ) center bottom no-repeat; 
-      transition: $transition-out;
-      padding-bottom: $height + $space;
-      background-size: 0 $height;
-
-      &:hover, &.active {
-        background-size: 100% $height; 
-        transition: $transition-in
-      }
-    }
-  }
-}
-
-.dark {
-  span, ul li {
-    color: $text-color-dark;
-  }
-}
+// ------------------ secondPage starts here----------
 
 #info {
   height: 100vh;
@@ -257,3 +272,5 @@ nav {
   position: relative;
   bottom: 200px;
 }
+
+// ------------------ secondPage ends here----------

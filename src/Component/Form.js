@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function Form({
+export default function Form({
   from,
   to,
   item,
@@ -177,4 +176,34 @@ function Form({
   );
 }
 
-export default Form;
+Form.propTypes = {
+  from: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  item: PropTypes.string.isRequired,
+  dateOption: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  timeStart: PropTypes.string.isRequired,
+  timeEnd: PropTypes.string.isRequired,
+  quote: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+
+  classOfFrom: PropTypes.string.isRequired,
+  classOfTo: PropTypes.string.isRequired,
+  classOfItem: PropTypes.string.isRequired,
+  classOfDate: PropTypes.string.isRequired,
+  classOfCustomizedDate: PropTypes.string.isRequired,
+  classOfName: PropTypes.string.isRequired,
+  classOfSubmit: PropTypes.string.isRequired,
+  classOfNext: PropTypes.string.isRequired,
+  classOfAfterSubmit: PropTypes.string.isRequired,
+
+  handleChange: PropTypes.func.isRequired,
+  handleSelectionChange: PropTypes.func.isRequired,
+  handleKeyPress: PropTypes.func.isRequired,
+  handleClickSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+
+  fromDataList: PropTypes.object.isRequired,
+};

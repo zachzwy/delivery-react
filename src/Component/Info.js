@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import Form from './Form';
-import Map from './Map';
 import { FlyToInterpolator } from 'react-map-gl';
 import WebMercatorViewport from 'viewport-mercator-project';
+
+import Form from './Form';
+import Map from './Map';
 
 class Info extends React.Component {
   state = {
@@ -30,7 +31,6 @@ class Info extends React.Component {
     classOfNext: 'none',
     classOfAfterSubmit: 'none',
 
-    externalData: null,
     viewport: {
       zoom: 12,
       latitude: 37.788,
@@ -38,6 +38,8 @@ class Info extends React.Component {
       bearing: 0,
       pitch: 0,
     },
+
+    externalData: null,
   };
 
   handleChange = e => {
@@ -124,8 +126,8 @@ class Info extends React.Component {
   }
 
   updateMap = () => {
-    const place = this.state.externalData[0];
-    if (place === null) return;
+    if (!this.state.externalData) return;
+    const place = this.state.externalData && this.state.externalData[0];
     const [minLng, minLat, maxLng, maxLat] = place.bbox ? place.bbox : [place.center[0] - 0.001, place.center[1] - 0.001, place.center[0] + 0.001, place.center[1] - 0.001];
     const viewport = new WebMercatorViewport(this.state.viewport);
     const { longitude, latitude, zoom } = viewport.fitBounds(
@@ -151,10 +153,10 @@ class Info extends React.Component {
     this._asyncRequest = fetch(url).then(
       response => response.json()
     ).then(
-      data => {
+      json => {
         this._asyncRequest = null;
         this.setState({
-          externalData: data.features,
+          externalData: json.features,
         });
       }
     );
