@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 
-import Nav from './Component/Nav';
-import Intro from './Component/Intro';
-import Info from './Component/Info';
+import Nav from './component/Nav';
+import Intro from './component/Intro';
+import Info from './component/Info';
 import './App.scss';
 
 class App extends React.Component {

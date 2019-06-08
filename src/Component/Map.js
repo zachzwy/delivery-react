@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/prefer-stateless-function */
-import React from './node_modules/react';
-import { useState } from './node_modules/react';
-import PropTypes from './node_modules/prop-types';
-import MapGL from './node_modules/react-map-gl';
+import React from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import MapGL from 'react-map-gl';
 
-import './node_modules/mapbox-gl/dist/mapbox-gl.css';
-import './node_modules/react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 const TOKEN = 'pk.eyJ1IjoiemFjaHp3eSIsImEiOiJjanczeWZ1aGYxOW05M3pwczRkZ3A1NGJ4In0.BFX8cW_ZygtvgjIvrwhT1g';
 
