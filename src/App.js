@@ -1,59 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 
 import Nav from './component/Nav';
 import Intro from './component/Intro';
-import Info from './component/Info';
+import InfoWithHooks from './component/InfoWithHooks';
 import './App.scss';
 
-class App extends React.Component {
-  state = {
-    navClass: '',
-  };
+function App () {
 
-  componentDidMount() {
-    window.addEventListener('transitionend', this.handleTrans);
-  }
+  const [navClass, setNacClass] = useState('');
 
-  componentWillUnmount() {
-    window.removeEventListener('transitionend', this.handleTrans);
-  }
-
-  handleTrans = () => {
+  const handleTrans = () => {
     const bodyDOM = document.querySelector('body');
     if (bodyDOM.className === 'fp-viewing-secondPage') {
-      this.setState({
-        navClass: 'dark',
-      });
+      setNacClass('dark');
     } else {
-      this.setState({
-        navClass: '',
-      });
+      setNacClass('');
     }
   }
 
-  render() {
-    return (
-      <>
-        <Nav navClass={this.state.navClass}/>
-        <ReactFullpage
-          anchors={['firstPage', 'secondPage']}
-          render={({ state, fullpageApi }) => {
-            return (
-              <>
-                <div className='section' id="background">
-                  <Intro fullpageApi={fullpageApi} />
-                </div>
-                <div className='section'>
-                  <Info />
-                </div>
-              </>
-            );
-          }}
-        />
-      </>
-    );
-  }
+  useEffect(() => {
+    window.addEventListener('transitionend', handleTrans);
+    return () => window.removeEventListener('transitionend', handleTrans);
+  }, []);
+
+  return (
+    <>
+      <Nav navClass={navClass}/>
+      <ReactFullpage
+        anchors={['firstPage', 'secondPage']}
+        render={({ state, fullpageApi }) => {
+          return (
+            <>
+              <div className='section' id="background">
+                <Intro fullpageApi={fullpageApi} />
+              </div>
+              <div className='section'>
+                <InfoWithHooks />
+              </div>
+            </>
+          );
+        }}
+      />
+    </>
+  );
 }
 
 export default App;
