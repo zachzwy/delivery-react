@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { FlyToInterpolator } from 'react-map-gl';
-import WebMercatorViewport from 'viewport-mercator-project';
+import React from 'react';
 
 import useForm from '../customHooks/useForm';
+import useUiState from '../customHooks/useUiState';
+import useGeocoding from '../customHooks/useGeocoding';
+import useUpdateMap from '../customHooks/useUpdateMap';
 import FormWithHooks from './FormWithHooks';
 import Map from './Map';
 
 export default function InfoWithHooks() {
 
-  const { inputs, handleChange, handleSubmit } = useForm({
+  const formBundle = useForm({
     from: '',
     to: '',
     item: '',
@@ -21,7 +22,8 @@ export default function InfoWithHooks() {
     lastName: '',
     phone: '',
   });
-  const [uiState, setUiState] = useState({
+
+  const uiStateBundle = useUiState({
     classOfFrom: '',
     classOfTo: 'none',
     classOfItem: 'none',
@@ -32,58 +34,15 @@ export default function InfoWithHooks() {
     classOfNext: 'next',
     classOfAfterSubmit: 'none',
   });
-  const [viewport, setViewport] = useState({
-    zoom: 12,
-    latitude: 37.788,
-    longitude: -122.417,
-    bearing: 0,
-    pitch: 0,
-  });
-  const [externalData, setExternalData] = useState(null);
 
-  const handleKeyPress = e => {
-    const { name, value } = e.target;
-    if (value !== '' && e.key === 'Enter') {
-      switch (name) {
-        case 'from':
-          setUiState({ ...uiState, classOfTo: '' });
-          return;
-        case 'to':
-          setUiState({ ...uiState, classOfItem: '' });
-          return;
-        case 'firstName' || 'lastName' || 'phone':
-          setUiState({ ...uiState, classOfSubmit: '', classOfNext: 'none' });
-          return;
-        default:
-          return;
-      }
-    }
-  };
+  const from = formBundle.inputs.from;
+  const to = formBundle.inputs.to;
+  const dropdownDataFrom = useGeocoding(from);
+  const dropdownDataTo = useGeocoding(to);
+  const dropdownDataFromList = dropdownDataFrom && dropdownDataFrom.map(item => item.place_name);
+  const dropdownDataToList = dropdownDataTo && dropdownDataTo.map(item => item.place_name);
 
-  const handleSelectionChange = e => {
-    handleChange(e);
-    const { name, value } = e.target;
-    switch (name) {
-      case 'item':
-        setUiState({ ...uiState, classOfDate: '' });
-        return;
-      case 'dateOption':
-        setUiState({
-          ...uiState,
-          classOfName: '',
-          classOfCustomizedDate: value === 'none-works' ? '' : 'none',
-        });
-        return;
-      default:
-        return;
-      }
-  };
-
-  const handleViewportChange = newViewport => {
-    setViewport({ ...viewport, ...newViewport });
-  }
-
-  const fromDataList = externalData && externalData.map(item => item.place_name);
+  const { viewport, handleViewportChange, handleUpdateMap} = useUpdateMap(dropdownDataFrom, dropdownDataTo);
 
   return (
     <div id="info">
@@ -92,13 +51,11 @@ export default function InfoWithHooks() {
         handleViewportChange={handleViewportChange}
       />
       <FormWithHooks
-        inputs={inputs}
-        uiState={uiState}
-        handleChange={handleChange}
-        handleSelectionChange={handleSelectionChange}
-        handleSubmit={handleSubmit}
-        handleKeyPress={handleKeyPress}
-        fromDataList={fromDataList}
+        {...formBundle}
+        {...uiStateBundle}
+        dropdownDataFromList={dropdownDataFromList}
+        dropdownDataToList={dropdownDataToList}
+        handleUpdateMap={handleUpdateMap}
       />
     </div>
   );

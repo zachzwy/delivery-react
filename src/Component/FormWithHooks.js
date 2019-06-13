@@ -6,12 +6,14 @@ import PropTypes from 'prop-types';
 
 export default function Form({
   inputs,
-  uiState,
   handleChange,
-  handleSelectionChange,
   handleSubmit,
-  handleKeyPress,
-  fromDataList,
+  uiState,
+  handleKeyPressForUi,
+  handleSelectionChangeForUi,
+  dropdownDataFromList,
+  dropdownDataToList,
+  handleUpdateMap,
 }) {
   return (
     <div id="form-container">
@@ -19,37 +21,56 @@ export default function Form({
         <label className={uiState.classOfFrom}>
           I WANT TO MOVE FROM:
           <br />
-          <datalist id="fromDataList">
-            {fromDataList && fromDataList.map(item => <option key={item} value={item} />)}
+          <datalist id="dropdownDataFromList">
+            {dropdownDataFromList && dropdownDataFromList.map(item => <option key={item} value={item} />)}
           </datalist>
           <input
             type="text"
             name="from"
             value={inputs.from}
             placeholder="Pick up location..."
-            list="fromDataList"
+            list="dropdownDataFromList"
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyPress={e => {
+              handleKeyPressForUi(e);
+              handleUpdateMap(e)
+            }}
+            autoComplete='off'
             required
           />
         </label>
         <label className={uiState.classOfTo}>
           I WANT TO MOVE TO:
           <br />
+          <datalist id="dropdownDataToList">
+            {dropdownDataToList && dropdownDataToList.map(item => <option key={item} value={item} />)}
+          </datalist>
           <input
             type="text"
             name="to"
             value={inputs.to}
             placeholder="Drop off location..."
+            list="dropdownDataToList"
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyPress={e => {
+              handleKeyPressForUi(e);
+              handleUpdateMap(e)
+            }}
+            autoComplete='off'
             required
           />
         </label>
         <label className={uiState.classOfItem}>
           I WANT TO MOVE:
           <br />
-          <select name="item" id="item" onChange={handleSelectionChange}>
+          <select
+            name="item"
+            id="item"
+            onChange={e => {
+              handleChange(e);
+              handleSelectionChangeForUi(e);
+            }}
+          >
             <option value="default" defaultChecked>Choose Your Moving Item Size</option>
             <option value="size-i">Size i</option>
             <option value="size-ii">Size ii</option>
@@ -60,7 +81,13 @@ export default function Form({
         <label className={uiState.classOfDate}>
           I WANT TO MOVE ON:
           <br />
-          <select name="dateOption" onChange={handleSelectionChange}>
+          <select
+            name="dateOption"
+            onChange={e => {
+              handleChange(e);
+              handleSelectionChangeForUi(e);
+            }}
+          >
             <option value="default" defaultChecked>Choose Your Moving Date</option>
             <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
             <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
@@ -109,7 +136,7 @@ export default function Form({
             value={inputs.firstName}
             placeholder="First name..."
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyPress={handleKeyPressForUi}
             required
           />
           <input
@@ -119,7 +146,7 @@ export default function Form({
             value={inputs.lastName}
             placeholder="Last name..."
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyPress={handleKeyPressForUi}
             required
           />
           <input
@@ -129,7 +156,7 @@ export default function Form({
             value={inputs.phone}
             placeholder="Phone number..."
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyPress={handleKeyPressForUi}
             required
           />
         </label>
@@ -153,35 +180,3 @@ export default function Form({
     </div>
   );
 }
-
-// Form.propTypes = {
-//   from: PropTypes.string.isRequired,
-//   to: PropTypes.string.isRequired,
-//   item: PropTypes.string.isRequired,
-//   dateOption: PropTypes.string.isRequired,
-//   date: PropTypes.string.isRequired,
-//   timeStart: PropTypes.string.isRequired,
-//   timeEnd: PropTypes.string.isRequired,
-//   quote: PropTypes.string.isRequired,
-//   firstName: PropTypes.string.isRequired,
-//   lastName: PropTypes.string.isRequired,
-//   phone: PropTypes.string.isRequired,
-
-//   classOfFrom: PropTypes.string.isRequired,
-//   classOfTo: PropTypes.string.isRequired,
-//   classOfItem: PropTypes.string.isRequired,
-//   classOfDate: PropTypes.string.isRequired,
-//   classOfCustomizedDate: PropTypes.string.isRequired,
-//   classOfName: PropTypes.string.isRequired,
-//   classOfSubmit: PropTypes.string.isRequired,
-//   classOfNext: PropTypes.string.isRequired,
-//   classOfAfterSubmit: PropTypes.string.isRequired,
-
-//   handleChange: PropTypes.func.isRequired,
-//   handleSelectionChange: PropTypes.func.isRequired,
-//   handleKeyPress: PropTypes.func.isRequired,
-//   handleClickSubmit: PropTypes.func.isRequired,
-//   handleSubmit: PropTypes.func.isRequired,
-
-//   fromDataList: PropTypes.object,
-// };

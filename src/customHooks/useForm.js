@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function useForm(defaultInputs) {
+export default function useForm(defaultInputs) {
 
   const [inputs, setInputs] = useState(defaultInputs);
 
@@ -23,5 +23,3 @@ function useForm(defaultInputs) {
     handleSubmit,
   };
 }
-
-export default useForm;
