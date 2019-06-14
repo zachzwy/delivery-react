@@ -42,13 +42,14 @@ export default function Info() {
   const dropdownDataFromList = dropdownDataFrom && dropdownDataFrom.map(item => item.place_name);
   const dropdownDataToList = dropdownDataTo && dropdownDataTo.map(item => item.place_name);
 
-  const { viewport, handleViewportChange, handleUpdateMap} = useUpdateMap(dropdownDataFrom, dropdownDataTo);
+  const { viewport, handleViewportChange, handleUpdateMap, location } = useUpdateMap(dropdownDataFrom, dropdownDataTo);
 
   return (
     <div id="info">
       <Map
         viewport={viewport}
         handleViewportChange={handleViewportChange}
+        location={location}
       />
       <Form
         {...formBundle}

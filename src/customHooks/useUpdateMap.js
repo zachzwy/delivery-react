@@ -4,6 +4,8 @@ import { FlyToInterpolator } from 'react-map-gl';
 import WebMercatorViewport from 'viewport-mercator-project';
 
 export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
+
+  const [location, setLocation] = useState({});
   const [viewport, setViewport] = useState({
     zoom: 12,
     latitude: 37.788,
@@ -27,8 +29,8 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
     setViewport({
       ...nextViewport,
       zoom: zoom,
-      latitude: latitude,
-      longitude: longitude,
+      latitude: place.center[1],
+      longitude: place.center[0],
       transitionInterpolator: new FlyToInterpolator(),
       transitionDuration: 3000,
     });
@@ -39,10 +41,24 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
     if (e.key === 'Enter') {
       if (name === 'from') {
         const place = dropdownDataFrom[0];
+        setLocation({
+          ...location,
+          from: {
+            longitude: place.center[0],
+            latitude: place.center[1],
+          }
+        });
         updateMap(place);
         console.log('here');
       } else if (name === 'to') {
         const place = dropdownDataTo[0];
+        setLocation({
+          ...location,
+          to: {
+            longitude: place.center[0],
+            latitude: place.center[1],
+          }
+        });
         updateMap(place);
       }
     }
@@ -52,5 +68,6 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
     viewport,
     handleViewportChange,
     handleUpdateMap,
+    location,
   };
 }

@@ -40,9 +40,24 @@ export default function useUiState(initUiState) {
       }
   };
 
+  const handleClickSubmit = e => {
+    setUiState({
+      classOfFrom: 'none',
+      classOfTo: 'none',
+      classOfItem: 'none',
+      classOfDate: 'none',
+      classOfCustomizedDate: 'none',
+      classOfName: 'none',
+      classOfSubmit: 'none',
+      classOfNext: 'none',
+      classOfAfterSubmit: '',
+    });
+  }
+
   return {
     uiState,
     handleKeyPressForUi,
     handleSelectionChangeForUi,
+    handleClickSubmit,
   };
 }
