@@ -1,14 +1,15 @@
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import { FlyToInterpolator } from 'react-map-gl';
-import WebMercatorViewport from 'viewport-mercator-project';
 
+import useForm from '../customHooks/useForm';
+import useUiState from '../customHooks/useUiState';
+import useGeocoding from '../customHooks/useGeocoding';
+import useUpdateMap from '../customHooks/useUpdateMap';
 import Form from './Form';
 import Map from './Map';
 
-class Info extends React.Component {
-  state = {
+export default function Info() {
+
+  const formBundle = useForm({
     from: '',
     to: '',
     item: '',
@@ -20,7 +21,9 @@ class Info extends React.Component {
     firstName: '',
     lastName: '',
     phone: '',
+  });
 
+  const uiStateBundle = useUiState({
     classOfFrom: '',
     classOfTo: 'none',
     classOfItem: 'none',
@@ -28,183 +31,32 @@ class Info extends React.Component {
     classOfCustomizedDate: 'none',
     classOfName: 'none',
     classOfSubmit: 'none',
-    classOfNext: 'none',
+    classOfNext: 'next',
     classOfAfterSubmit: 'none',
+  });
 
-    viewport: {
-      zoom: 12,
-      latitude: 37.788,
-      longitude: -122.417,
-      bearing: 0,
-      pitch: 0,
-    },
+  const from = formBundle.inputs.from;
+  const to = formBundle.inputs.to;
+  const dropdownDataFrom = useGeocoding(from);
+  const dropdownDataTo = useGeocoding(to);
+  const dropdownDataFromList = dropdownDataFrom && dropdownDataFrom.map(item => item.place_name);
+  const dropdownDataToList = dropdownDataTo && dropdownDataTo.map(item => item.place_name);
 
-    externalData: null,
-  };
+  const { viewport, handleViewportChange, handleUpdateMap} = useUpdateMap(dropdownDataFrom, dropdownDataTo);
 
-  handleChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({
-      [name]: value,
-      classOfNext: this.state.classOfSubmit === 'none' ? 'next' : 'none',
-    });
-
-    if (name === 'from') {
-      if (value === '') {
-        this.setState({
-          externalData: null,
-        });
-      } else {
-        this._loadAsyncData(this.state.from);
-      }
-    }
-  }
-
-  handleSelectionChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({
-      [name]: value,
-    });
-    if (name === 'item') {
-      this.setState({
-        classOfDate: '',
-      });
-    } else if (name === 'dateOption') {
-      this.setState({
-        classOfName: '',
-        classOfCustomizedDate: value === 'none-works' ? '' : this.state.classOfCustomizedDate,
-      });
-    }
-  }
-
-  handleKeyPress = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    if ( value !== '' && e.key === 'Enter') {
-      if (name === 'from') {
-        this.setState({
-          classOfTo: '',
-        });
-        this.updateMap();
-      } else if (name === 'to') {
-        this.setState({
-          classOfItem: '',
-        });
-      } else if (name === 'phone' || name === 'firstName' || name === 'lastName') {
-        this.setState({
-          classOfSubmit: '',
-          classOfNext: 'none',
-        });
-      }
-    }
-  }
-
-  handleClickSubmit = e => {
-    this.setState({
-      classOfFrom: 'none',
-      classOfTo: 'none',
-      classOfItem: 'none',
-      classOfDate: 'none',
-      classOfCustomizedDate: 'none',
-      classOfName: 'none',
-      classOfSubmit: 'none',
-      classOfNext: 'none',
-      classOfAfterSubmit: '',
-    });
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
-  }
-
-  handleViewportChange = viewport => {
-    this.setState({
-      viewport: { ...this.state.viewport, ...viewport },
-    });
-  }
-
-  updateMap = () => {
-    if (!this.state.externalData) return;
-    const place = this.state.externalData && this.state.externalData[0];
-    const [minLng, minLat, maxLng, maxLat] = place.bbox ? place.bbox : [place.center[0] - 0.001, place.center[1] - 0.001, place.center[0] + 0.001, place.center[1] - 0.001];
-    const viewport = new WebMercatorViewport(this.state.viewport);
-    const { longitude, latitude, zoom } = viewport.fitBounds(
-      [[minLng, minLat], [maxLng, maxLat]],
-      {padding: 40}
-    );
-    this.setState({
-      viewport: {
-        ...this.state.viewport,
-        zoom: zoom,
-        latitude: latitude,
-        longitude: longitude,
-        transitionInterpolator: new FlyToInterpolator(),
-        transitionDuration: 3000,
-      },
-    });
-  }
-
-  _loadAsyncData = from => {
-    if (from === '') return;
-    const queryFrom = from.replace(/\s/g, '%20');
-    let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${queryFrom}.json?access_token=pk.eyJ1IjoiemFjaHp3eSIsImEiOiJjanczeWZ1aGYxOW05M3pwczRkZ3A1NGJ4In0.BFX8cW_ZygtvgjIvrwhT1g`;
-    this._asyncRequest = fetch(url).then(
-      response => response.json()
-    ).then(
-      json => {
-        this._asyncRequest = null;
-        this.setState({
-          externalData: json.features,
-        });
-      }
-    );
-  }
-
-  render() {
-    const fromDataList = this.state.externalData && this.state.externalData.map(item => item.place_name);
-
-    return (
-      <div id="info">
-        <Map
-          viewport={this.state.viewport}
-          handleViewportChange={this.handleViewportChange}
-        />
-        <Form
-          from={this.state.from}
-          to={this.state.to}
-          item={this.state.item}
-          dateOption={this.state.dateOption}
-          date={this.state.date}
-          timeStart={this.state.timeStart}
-          timeEnd={this.state.timeEnd}
-          quote={this.state.quote}
-          firstName={this.state.firstName}
-          lastName={this.state.lastName}
-          phone={this.state.phone}
-
-          classOfFrom={this.state.classOfFrom}
-          classOfTo={this.state.classOfTo}
-          classOfItem={this.state.classOfItem}
-          classOfDate={this.state.classOfDate}
-          classOfCustomizedDate={this.state.classOfCustomizedDate}
-          classOfName={this.state.classOfName}
-          classOfSubmit={this.state.classOfSubmit}
-          classOfNext={this.state.classOfNext}
-          classOfAfterSubmit={this.state.classOfAfterSubmit}
-
-          handleChange={this.handleChange}
-          handleSelectionChange={this.handleSelectionChange}
-          handleKeyPress={this.handleKeyPress}
-          handleClickSubmit={this.handleClickSubmit}
-          handleSubmit={this.handleSubmit}
-
-          fromDataList={fromDataList}
-        />
-      </div>
-    );
-  }
+  return (
+    <div id="info">
+      <Map
+        viewport={viewport}
+        handleViewportChange={handleViewportChange}
+      />
+      <Form
+        {...formBundle}
+        {...uiStateBundle}
+        dropdownDataFromList={dropdownDataFromList}
+        dropdownDataToList={dropdownDataToList}
+        handleUpdateMap={handleUpdateMap}
+      />
+    </div>
+  );
 }
-
-export default Info;

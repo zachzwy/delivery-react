@@ -3,7 +3,7 @@ import ReactFullpage from '@fullpage/react-fullpage';
 
 import Nav from './component/Nav';
 import Intro from './component/Intro';
-import InfoWithHooks from './component/InfoWithHooks';
+import Info from './component/Info';
 import './App.scss';
 
 function App () {
@@ -36,7 +36,7 @@ function App () {
                 <Intro fullpageApi={fullpageApi} />
               </div>
               <div className='section'>
-                <InfoWithHooks />
+                <Info />
               </div>
             </>
           );
