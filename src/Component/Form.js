@@ -3,6 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Progress from './Progress';
+
 export default function Form({
   inputs,
   handleChange,
@@ -17,9 +19,20 @@ export default function Form({
   dropdownDataToList,
   handleUpdateMap,
 }) {
+  let count = 0;
+  const { classOfTo, classOfItem, classOfDate, classOfName, classOfSubmit } = uiState;
+  const countList = [classOfTo, classOfItem, classOfDate, classOfName, classOfSubmit];
+  for (let item of countList) {
+    if (item === 'active') {
+      count++;
+    }
+  }
+  const width = count / 5;
+
   return (
     <div id="form-container">
       <form id="form" onSubmit={handleSubmit}>
+        <Progress width={width} classOfProgress={uiState.classOfProgress}/>
         <label className={uiState.classOfFrom}>
           I WANT TO MOVE FROM:
           <br />
@@ -74,10 +87,10 @@ export default function Form({
             }}
           >
             <option value="default" defaultChecked>Choose Your Moving Item Size</option>
-            <option value="size-i">Size i</option>
-            <option value="size-ii">Size ii</option>
-            <option value="size-iii">Size iii</option>
-            <option value="size-iv">Size iv</option>
+            <option value="size-i">Items that fit into a SUV</option>
+            <option value="size-ii">Sofa, bed frame, etc</option>
+            <option value="size-iii">Studio or one bedroom</option>
+            <option value="size-iv">Larger than one bedroom</option>
           </select>
         </label>
         <label className={uiState.classOfDate}>
@@ -91,10 +104,10 @@ export default function Form({
             }}
           >
             <option value="default" defaultChecked>Choose Your Moving Date</option>
-            <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
-            <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
-            <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
-            <option value="05/19/2019/0900AM-1200AM">05/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
+            <option value="07/19/2019/0900AM-1200AM">07/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
+            <option value="07/19/2019/0900AM-1200AM">07/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
+            <option value="07/19/2019/0900AM-1200AM">07/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
+            <option value="07/19/2019/0900AM-1200AM">07/19/2019 ---------- 09:00AM - 12:OOAM ---------- $30</option>
             <option value="none-works">None works</option>
           </select>
         </label>

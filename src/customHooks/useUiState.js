@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { NONAME } from 'dns';
 
 export default function useUiState(initUiState) {
   const [uiState, setUiState] = useState(initUiState);
@@ -8,13 +9,13 @@ export default function useUiState(initUiState) {
     if (value !== '' && e.key === 'Enter') {
       switch (name) {
         case 'from':
-          setUiState({ ...uiState, classOfTo: '' });
+          setUiState({ ...uiState, classOfTo: 'active' });
           return;
         case 'to':
-          setUiState({ ...uiState, classOfItem: '' });
+          setUiState({ ...uiState, classOfItem: 'active' });
           return;
         case 'firstName' || 'lastName' || 'phone':
-          setUiState({ ...uiState, classOfSubmit: '', classOfNext: 'none' });
+          setUiState({ ...uiState, classOfSubmit: 'active', classOfNext: 'none' });
           return;
         default:
           return;
@@ -26,13 +27,13 @@ export default function useUiState(initUiState) {
     const { name, value } = e.target;
     switch (name) {
       case 'item':
-        setUiState({ ...uiState, classOfDate: '' });
+        setUiState({ ...uiState, classOfDate: 'active' });
         return;
       case 'dateOption':
         setUiState({
           ...uiState,
-          classOfName: '',
-          classOfCustomizedDate: value === 'none-works' ? '' : 'none',
+          classOfName: 'active',
+          classOfCustomizedDate: value === 'none-works' ? 'active' : 'none',
         });
         return;
       default:
@@ -50,7 +51,8 @@ export default function useUiState(initUiState) {
       classOfName: 'none',
       classOfSubmit: 'none',
       classOfNext: 'none',
-      classOfAfterSubmit: '',
+      classOfProgress: 'none',
+      classOfAfterSubmit: 'active',
     });
   }
 

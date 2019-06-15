@@ -63,8 +63,8 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
   };
 
   const handleUpdateMap = e => {
-    const { name } = e.target;
-    if (e.key === 'Enter') {
+    const { name, value } = e.target;
+    if (e.key === 'Enter' && value !== '') {
       if (name === 'from') {
         const place = dropdownDataFrom[0];
         setLocation({
@@ -75,8 +75,8 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
           }
         });
       
-        if (location.to) {
-          getDirection({
+        if (location.to) {  // if user already enters the to input
+          getDirection({  // getDirection will handle updateMap
             longitude: place.center[0],
             latitude: place.center[1],
           }, location.to);
