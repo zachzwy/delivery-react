@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { FlyToInterpolator } from 'react-map-gl';
 import WebMercatorViewport from 'viewport-mercator-project';
 
+import getDirection from '../calculation/getDirection';
+
 export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
 
   const [location, setLocation] = useState({});
@@ -13,29 +15,53 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
     bearing: 0,
     pitch: 0,
   });
+  const [points, setPoints] = useState([]);
   
   const handleViewportChange = newViewport => {
     setViewport({ ...viewport, ...newViewport });
   };
   
-  const updateMap = place => {
-    if (!place) return;
-    const [minLng, minLat, maxLng, maxLat] = place.bbox ? place.bbox : [place.center[0] - 0.001, place.center[1] - 0.001, place.center[0] + 0.001, place.center[1] - 0.001];
+  const updateMap = (place, points) => {
+    let minLng, minLat, maxLng, maxLat;
+    // only has from
+    if (place) {
+      [minLng, minLat, maxLng, maxLat] = place.bbox ? place.bbox : [place.center[0] - 0.001, place.center[1] - 0.001, place.center[0] + 0.001, place.center[1] - 0.001];
+    }  else {
+      // has both
+      minLng = Math.min(...points.map(point => point[0]));
+      maxLng = Math.max(...points.map(point => point[0]));
+      minLat = Math.min(...points.map(point => point[1]));
+      maxLat = Math.max(...points.map(point => point[1]));
+    }
+
     const nextViewport = new WebMercatorViewport(viewport);
     const { longitude, latitude, zoom } = nextViewport.fitBounds(
       [[minLng, minLat], [maxLng, maxLat]],
-      {padding: 40}
+      {padding: 50}
     );
     setViewport({
       ...nextViewport,
       zoom: zoom,
-      latitude: place.center[1],
-      longitude: place.center[0],
+      latitude: location.from ? latitude : place.center[1],
+      longitude: location.from ? longitude : place.center[0],
       transitionInterpolator: new FlyToInterpolator(),
       transitionDuration: 3000,
     });
   };
-  
+
+  const getDirection = (pointA, pointB) => {
+    const query = `${pointA.longitude},${pointA.latitude};${pointB.longitude},${pointB.latitude}`;
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${query}?steps=true&access_token=pk.eyJ1IjoiemFjaHp3eSIsImEiOiJjanczeWZ1aGYxOW05M3pwczRkZ3A1NGJ4In0.BFX8cW_ZygtvgjIvrwhT1g`;
+    fetch(url)
+      .then(response => response.json())
+      .then(json => {
+        const points = json.routes[0].legs[0].steps.map(step => step.intersections[0].location);
+        setPoints(points);
+        updateMap(null, points);
+      })
+      .catch(e => console.log(e.message));
+  };
+
   const handleUpdateMap = e => {
     const { name } = e.target;
     if (e.key === 'Enter') {
@@ -48,8 +74,16 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
             latitude: place.center[1],
           }
         });
-        updateMap(place);
-        console.log('here');
+      
+        if (location.to) {
+          getDirection({
+            longitude: place.center[0],
+            latitude: place.center[1],
+          }, location.to);
+        } else {
+          updateMap(place, null);
+        }
+
       } else if (name === 'to') {
         const place = dropdownDataTo[0];
         setLocation({
@@ -59,7 +93,10 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
             latitude: place.center[1],
           }
         });
-        updateMap(place);
+        getDirection(location.from, {
+          longitude: place.center[0],
+          latitude: place.center[1],
+        });
       }
     }
   };
@@ -69,5 +106,6 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
     handleViewportChange,
     handleUpdateMap,
     location,
+    points,
   };
 }

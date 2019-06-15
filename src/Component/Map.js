@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 import MapGL, { Marker } from 'react-map-gl';
 
 import Pin from './Pin';
+import PolylineOverlay from './PolylineOverlay';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 const TOKEN = 'pk.eyJ1IjoiemFjaHp3eSIsImEiOiJjanczeWZ1aGYxOW05M3pwczRkZ3A1NGJ4In0.BFX8cW_ZygtvgjIvrwhT1g';
 
-export default function Map({ viewport, handleViewportChange, location }) {
+export default function Map({ viewport, handleViewportChange, location, points }) {
   const [classOfCtrlZoom, setClassOfCtrlZoom] = useState('none');
   const mapRef = React.createRef();
 
@@ -34,18 +35,24 @@ export default function Map({ viewport, handleViewportChange, location }) {
         >
 
           {!location.from ? null : (
-            <Marker latitude={location.from.latitude} longitude={location.from.longitude} offsetLeft={-20} offsetTop={-10}>
-              <div className='pin'>Pick up here</div>
-              <Pin />
+            <Marker latitude={location.from.latitude} longitude={location.from.longitude}>
+              <div className='pin'>&#10514;</div>
+              {/* <Pin /> */}
             </Marker>
           )}
 
           {!location.to ? null : (
-            <Marker latitude={location.to.latitude} longitude={location.to.longitude} offsetLeft={-20} offsetTop={-10}>
-              <div className='pin'>Drop off here</div>
-              <Pin />
-            </Marker>
+            <>
+              <Marker latitude={location.to.latitude} longitude={location.to.longitude}>
+                <div className='pin'>&#10515;</div>
+                {/* <Pin /> */}
+              </Marker>
+
+              <PolylineOverlay points={points} />
+            </>
           )}
+
+
 
 
         </MapGL>

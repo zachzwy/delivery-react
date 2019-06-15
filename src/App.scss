@@ -277,10 +277,16 @@ nav {
 }
 
 .pin {
-  color: white;
+  // color: red;
+
+  background: -webkit-linear-gradient(#ff7d7d, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
   position: relative;
-  bottom: 25px;
-  right: 40px;
+  bottom: 30px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #thanks {
