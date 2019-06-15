@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MapGL, { Marker } from 'react-map-gl';
 
-import Pin from './Pin';
 import PolylineOverlay from './PolylineOverlay';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -37,7 +36,6 @@ export default function Map({ viewport, handleViewportChange, location, points }
           {!location.from ? null : (
             <Marker latitude={location.from.latitude} longitude={location.from.longitude}>
               <div className='pin'>&#10514;</div>
-              {/* <Pin /> */}
             </Marker>
           )}
 
@@ -45,15 +43,11 @@ export default function Map({ viewport, handleViewportChange, location, points }
             <>
               <Marker latitude={location.to.latitude} longitude={location.to.longitude}>
                 <div className='pin'>&#10515;</div>
-                {/* <Pin /> */}
               </Marker>
 
               <PolylineOverlay points={points} />
             </>
           )}
-
-
-
 
         </MapGL>
       </div>

@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { FlyToInterpolator } from 'react-map-gl';
 import WebMercatorViewport from 'viewport-mercator-project';
 
-import getDirection from '../calculation/getDirection';
-
 export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
 
   const [location, setLocation] = useState({});

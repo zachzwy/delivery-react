@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { NONAME } from 'dns';
 
 export default function useUiState(initUiState) {
   const [uiState, setUiState] = useState(initUiState);
