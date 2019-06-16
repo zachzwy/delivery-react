@@ -7,9 +7,11 @@ $transition-in: all 0.3s ease-in;
 $transition-out: all 0.3s ease-out;
 $titleFont: 'Cormorant Garamond', 'serif';
 $titleSize: 45px;
+$max-width: 600px;
+$max-height: 650px;
 
 * {
-  /* outline: 0.5px solid black; */
+  // outline: 0.5px solid black;
   font-family: Open Sans;
   padding: 0;
   margin: 0;
@@ -71,7 +73,11 @@ nav {
   }
 }
 
-
+@media screen and (max-width: $max-width) {
+  .nav-hide {
+    display: none;
+  }
+}
 
 // ------------------ nav ends here-------------------
 
@@ -124,9 +130,20 @@ nav {
   }
 }
 
+@media screen and (max-width: $max-width), screen and (max-height: $max-height) {
+  #intro {
+    width: 80%;
+    position: relative;
+    left: 10%;
+    top: 25vh;
+  }
+}
+
 // ------------------ firstPage ends here-------------
 
 // ------------------ secondPage starts here----------
+
+
 
 #info {
   height: 100vh;
@@ -143,14 +160,15 @@ nav {
 
 #map-container {
   float: left;
-  padding: 65px 70px 40px 40px;
+  padding: 65px 40px 40px 40px;
 }
 
 #form-container {
   float: right;
   display: flex;
   align-items: center;
-  padding: 75px 150px;
+  justify-content: center;
+  padding: 75px 100px;
 }
 
 #map {
@@ -205,12 +223,12 @@ nav {
   }
 
   .date {
-    padding-left: 40px;
+    // padding-left: 40px;
 
-    &-span {
-      position: relative;
-      right: 291px;
-    }
+    // &-span {
+    //   position: absolute;
+    //   right: 291px;
+    // }
   }
 
   .time-start {
@@ -261,7 +279,6 @@ nav {
 }
 
 .none {
-  // display: none !important;
   position: absolute;
   top: 9999px;
   opacity: 0;
@@ -269,7 +286,6 @@ nav {
 }
 
 .active {
-  // position: static;
   opacity: 1;
   transition: opacity 1.5s linear;
 }
@@ -300,8 +316,6 @@ nav {
 }
 
 .pin {
-  // color: red;
-
   background: -webkit-linear-gradient(#ff7d7d, red);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -314,8 +328,64 @@ nav {
 
 #thanks {
   font-size: $font-size-small;
-  position: relative;
-  bottom: 200px;
+}
+
+@media screen and (max-width: $max-width) {
+  #form-container, #map-container {
+    width: 100%;
+    height: 50%;
+  }
+}
+
+@media screen and (max-width: $max-width), screen and (max-height: $max-height) {
+  #map-container {
+    padding: 65px 40px 40px 40px;
+  }
+  
+  #form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 65px 40px;
+  }
+
+  #form {
+    width: 100%;
+
+    .progress {
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+      font-size: $font-size-small;
+    }
+  
+    input, select {
+      -webkit-appearance: none;
+      margin-top: 0px;
+      padding-left: 8px;
+      width: 100%;
+      height: 25px;
+      border: 1px solid $text-color-dark;
+      border-radius: 0;
+      background-color: white;
+    }
+
+    .time-start, .time-end {
+      margin-top: 4px;
+    }
+
+    .name-phone {
+      display: flex;
+      justify-content: space-between;
+
+      .name, .phone {
+        width: 40% !important;
+      }
+    }
+  }
 }
 
 // ------------------ secondPage ends here----------

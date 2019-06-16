@@ -30,7 +30,7 @@ export default function Form({
 
   return (
     <div id="form-container">
-      <form id="form" onSubmit={handleSubmit}>
+      <form id="form" className={uiState.classOfForm} onSubmit={handleSubmit}>
         <Progress width={width} classOfProgress={uiState.classOfProgress}/>
         <label className={uiState.classOfFrom}>
           I WANT TO MOVE FROM:
@@ -45,7 +45,7 @@ export default function Form({
             placeholder="Pick up location..."
             list="dropdownDataFromList"
             onChange={handleChange}
-            onKeyPress={e => {
+            onKeyDown={e => {
               handleKeyPressForUi(e);
               handleUpdateMap(e)
             }}
@@ -66,7 +66,7 @@ export default function Form({
             placeholder="Drop off location..."
             list="dropdownDataToList"
             onChange={handleChange}
-            onKeyPress={e => {
+            onKeyDown={e => {
               handleKeyPressForUi(e);
               handleUpdateMap(e)
             }}
@@ -84,6 +84,11 @@ export default function Form({
               handleChange(e);
               handleSelectionChangeForUi(e);
             }}
+            onKeyDown={e => {
+              if (e.key === 'Tab') {
+                e.preventDefault();
+              }
+            }}
           >
             <option value="default" defaultChecked>Choose Your Moving Item Size</option>
             <option value="size-i">Items that fit into a SUV</option>
@@ -100,6 +105,11 @@ export default function Form({
             onChange={e => {
               handleChange(e);
               handleSelectionChangeForUi(e);
+            }}
+            onKeyDown={e => {
+              if (e.key === 'Tab') {
+                e.preventDefault();
+              }
             }}
           >
             <option value="default" defaultChecked>Choose Your Moving Date</option>
@@ -120,7 +130,7 @@ export default function Form({
             value={inputs.date}
             onChange={handleChange}
           />
-          <span className="date-span">DATE:</span>
+          {/* <span className="date-span">DATE:</span> */}
           <br />
           <input
             type="time"
@@ -143,36 +153,38 @@ export default function Form({
         <label className={uiState.classOfName}>
           I AM:
           <br />
-          <input
-            type="text"
-            className="name"
-            name="firstName"
-            value={inputs.firstName}
-            placeholder="First name..."
-            onChange={handleChange}
-            onKeyPress={handleKeyPressForUi}
-            required
-          />
-          <input
-            type="text"
-            name="lastName"
-            className="name"
-            value={inputs.lastName}
-            placeholder="Last name..."
-            onChange={handleChange}
-            onKeyPress={handleKeyPressForUi}
-            required
-          />
-          <input
-            type="tel"
-            name="phone"
-            className="phone"
-            value={inputs.phone}
-            placeholder="Phone number..."
-            onChange={handleChange}
-            onKeyPress={handleKeyPressForUi}
-            required
-          />
+          <div className='name-phone'>
+            <input
+              type="text"
+              className="name"
+              name="firstName"
+              value={inputs.firstName}
+              placeholder="First name..."
+              onChange={handleChange}
+              onKeyDown={handleKeyPressForUi}
+              required
+            />
+            <input
+              type="text"
+              name="lastName"
+              className="name"
+              value={inputs.lastName}
+              placeholder="Last name..."
+              onChange={handleChange}
+              onKeyDown={handleKeyPressForUi}
+              required
+            />
+            <input
+              type="tel"
+              name="phone"
+              className="phone"
+              value={inputs.phone}
+              placeholder="Phone number..."
+              onChange={handleChange}
+              onKeyDown={handleKeyPressForUi}
+              required
+            />
+          </div>
         </label>
         <label className={uiState.classOfSubmit}>
           <input
@@ -188,8 +200,8 @@ export default function Form({
           <div className='next-ani'>&#8595;</div>
         </label>
       </form>
-      <div className={uiState.classOfAfterSubmit}>
-        <p id="thanks">{`THANKS, ${inputs.firstName.toUpperCase()}. WE WILL CONFIRM WITH YOU SHORTLY.`}</p>
+      <div className={uiState.classOfAfterSubmit} >
+        <div id="thanks">{`THANKS, ${inputs.firstName.toUpperCase()}. WE WILL CONFIRM WITH YOU SHORTLY.`}</div>
       </div>
     </div>
   );

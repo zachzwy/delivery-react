@@ -5,19 +5,27 @@ export default function useUiState(initUiState) {
 
   const handleKeyPressForUi = e => {
     const { name, value } = e.target;
-    if (value !== '' && e.key === 'Enter') {
+
+    if (value === '' && e.key === 'Tab') {
+      e.preventDefault();
+      return;
+    }
+
+    if ((value !== '' && e.key === 'Enter') || e.key === 'Tab') {
       switch (name) {
         case 'from':
           setUiState({ ...uiState, classOfTo: 'active' });
-          return;
+          break;
         case 'to':
           setUiState({ ...uiState, classOfItem: 'active' });
-          return;
-        case 'firstName' || 'lastName' || 'phone':
+          break;
+        case 'firstName':
+        case 'lastName':
+        case 'phone':
           setUiState({ ...uiState, classOfSubmit: 'active', classOfNext: 'none' });
-          return;
+          break;
         default:
-          return;
+          break;
       }
     }
   };
@@ -51,6 +59,7 @@ export default function useUiState(initUiState) {
       classOfSubmit: 'none',
       classOfNext: 'none',
       classOfProgress: 'none',
+      classOfForm: 'none',
       classOfAfterSubmit: 'active',
     });
   }
