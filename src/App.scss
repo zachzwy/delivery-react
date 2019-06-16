@@ -328,6 +328,8 @@ nav {
 
 #thanks {
   font-size: $font-size-small;
+  position: relative;
+  bottom: 20vh;
 }
 
 @media screen and (max-width: $max-width) {
