@@ -44,6 +44,25 @@ export default function Info() {
 
   const { viewport, handleViewportChange, handleUpdateMap, location, points, duration } = useUpdateMap(dropdownDataFrom, dropdownDataTo);
 
+  const item = formBundle.inputs.item;
+  let loadingTime;
+  switch (item) {
+    case 'size-i':
+      loadingTime = 20;
+      break;
+    case 'size-ii':
+      loadingTime = 40;
+      break;
+    case 'size-iii':
+      loadingTime = 60;
+      break;
+    case 'size-iv':
+      loadingTime = 120;
+      break;
+    default:
+      loadingTime = null;
+  }
+
   return (
     <div id="info">
       <Map
@@ -52,6 +71,7 @@ export default function Info() {
         location={location}
         points={points}
         duration={duration}
+        loadingTime={loadingTime}
       />
       <Form
         {...formBundle}

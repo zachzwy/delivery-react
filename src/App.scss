@@ -183,10 +183,9 @@ nav {
 }
 
 .ctrl-zoom {
-  color: #cecece;
-  position: absolute;
-  top: 67px;
-  left: 45px;
+  color: #e3e3e3;
+  position: relative;
+  left: 5px;
   font-size: $font-size-small;
   z-index: 10;
 }
@@ -326,17 +325,24 @@ nav {
   font-weight: bold;
 }
 
-.duration, .loading, .unloading {
+.duration, .loading, .unloading, .time-in-total {
   padding: 2px 5px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   box-shadow: 4px 4px 5px rgb(57, 57, 57);
   font-size: $font-size-small;
 }
 
-.unloading {
+.loading, .unloading {
   position: relative;
-  bottom: 30px;
+  right: 45px;
+}
+
+.time-in-total-position {
+  position: absolute;
+  top: 67px;
+  left: 45px;
+  z-index: 10;
 }
 
 #thanks {

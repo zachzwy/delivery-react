@@ -5,21 +5,30 @@ import PropTypes from 'prop-types';
 import MapGL, { Marker } from 'react-map-gl';
 
 import PolylineOverlay from './PolylineOverlay';
+import minuteToHour from '../calculation/minuteToHour';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 const TOKEN = 'pk.eyJ1IjoiemFjaHp3eSIsImEiOiJjanczeWZ1aGYxOW05M3pwczRkZ3A1NGJ4In0.BFX8cW_ZygtvgjIvrwhT1g';
 
-export default function Map({ viewport, handleViewportChange, location, points, duration }) {
+export default function Map({ viewport, handleViewportChange, location, points, duration, loadingTime }) {
   const [classOfCtrlZoom, setClassOfCtrlZoom] = useState('none');
   const mapRef = React.createRef();
 
   const durationAt = points[[parseInt(points.length / 2, 10)]];
+  const durationInHour = minuteToHour(duration);
+  const loadingTimeInHour = minuteToHour(loadingTime);
+  const timeInTotal = minuteToHour(duration + loadingTime * 2);
 
   return (
     <div id="map-container">
-      <span className={classOfCtrlZoom}>PRESS CTRL TO ZOOM IN</span>
+
+      <div className="time-in-total-position">
+        {loadingTime ? <span className="time-in-total">Time in Total: {timeInTotal}</span> : null}
+        <div className={classOfCtrlZoom}>Press Ctrl to Zoom In</div>
+      </div>
+      
       <div
         id="map"
         onMouseOver={() => setClassOfCtrlZoom('ctrl-zoom')}
@@ -47,18 +56,25 @@ export default function Map({ viewport, handleViewportChange, location, points, 
 
               <Marker latitude={location.to.latitude} longitude={location.to.longitude}>
                 <div className='pin'>&#10515;</div>
-                <div className='unloading'>{`Unloading: ${duration} min`}</div>
-              </Marker>
-
-              <Marker latitude={location.from.latitude} longitude={location.from.longitude}>
-                <div className='loading'>{`Loading: ${duration} min`}</div>
               </Marker>
 
               <Marker latitude={durationAt ? durationAt[1] : 0} longitude={durationAt ? durationAt[0] : 0}>
-                <div className='duration'>{`Driving: ${duration} min`}</div>
+                <div className='duration'>{`Driving: ${durationInHour}`}</div>
               </Marker>
             </>
           )}
+
+          {location.to && loadingTime ? (
+            <>
+              <Marker latitude={location.from.latitude} longitude={location.from.longitude}>
+                <div className='loading'>{`Loading: ${loadingTimeInHour}`}</div>
+              </Marker>
+
+              <Marker latitude={location.to.latitude} longitude={location.to.longitude}>
+                <div className='unloading'>{`Unloading: ${loadingTimeInHour}`}</div>
+              </Marker>
+            </>
+          ) : null}
 
         </MapGL>
       </div>
