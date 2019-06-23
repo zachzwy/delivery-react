@@ -326,6 +326,19 @@ nav {
   font-weight: bold;
 }
 
+.duration, .loading, .unloading {
+  padding: 2px 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  box-shadow: 4px 4px 5px rgb(57, 57, 57);
+  font-size: $font-size-small;
+}
+
+.unloading {
+  position: relative;
+  bottom: 30px;
+}
+
 #thanks {
   font-size: $font-size-small;
   position: relative;

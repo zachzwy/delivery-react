@@ -14,6 +14,7 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
     pitch: 0,
   });
   const [points, setPoints] = useState([]);
+  const [duration, setDuration] = useState();
   
   const handleViewportChange = newViewport => {
     setViewport({ ...viewport, ...newViewport });
@@ -55,6 +56,7 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
       .then(json => {
         const points = json.routes[0].legs[0].steps.map(step => step.intersections[0].location);
         setPoints(points);
+        setDuration(Math.floor(json.routes[0].legs[0].duration / 60));
         updateMap(null, points);
       })
       .catch(e => console.log(e.message));
@@ -105,5 +107,6 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
     handleUpdateMap,
     location,
     points,
+    duration
   };
 }

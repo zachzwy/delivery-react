@@ -11,9 +11,11 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 const TOKEN = 'pk.eyJ1IjoiemFjaHp3eSIsImEiOiJjanczeWZ1aGYxOW05M3pwczRkZ3A1NGJ4In0.BFX8cW_ZygtvgjIvrwhT1g';
 
-export default function Map({ viewport, handleViewportChange, location, points }) {
+export default function Map({ viewport, handleViewportChange, location, points, duration }) {
   const [classOfCtrlZoom, setClassOfCtrlZoom] = useState('none');
   const mapRef = React.createRef();
+
+  const durationAt = points[[parseInt(points.length / 2, 10)]];
 
   return (
     <div id="map-container">
@@ -41,11 +43,20 @@ export default function Map({ viewport, handleViewportChange, location, points }
 
           {!location.to ? null : (
             <>
+              <PolylineOverlay points={points} />
+
               <Marker latitude={location.to.latitude} longitude={location.to.longitude}>
                 <div className='pin'>&#10515;</div>
+                <div className='unloading'>{`Unloading: ${duration} min`}</div>
               </Marker>
 
-              <PolylineOverlay points={points} />
+              <Marker latitude={location.from.latitude} longitude={location.from.longitude}>
+                <div className='loading'>{`Loading: ${duration} min`}</div>
+              </Marker>
+
+              <Marker latitude={durationAt ? durationAt[1] : 0} longitude={durationAt ? durationAt[0] : 0}>
+                <div className='duration'>{`Driving: ${duration} min`}</div>
+              </Marker>
             </>
           )}
 
@@ -58,4 +69,7 @@ export default function Map({ viewport, handleViewportChange, location, points }
 Map.propTypes = {
   viewport: PropTypes.object.isRequired,
   handleViewportChange: PropTypes.func.isRequired,
+  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number).isRequired).isRequired
 };
+
+

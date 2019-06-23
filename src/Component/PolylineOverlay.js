@@ -1,5 +1,6 @@
 import React from 'react'
 import { CanvasOverlay } from 'react-map-gl'
+// https://github.com/uber/react-map-gl/issues/591
 
 export default function PolylineOverlay({
   points,
