@@ -1,41 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import ReactFullpage from '@fullpage/react-fullpage';
+import React, { useState, useEffect } from "react";
+import ReactFullpage from "@fullpage/react-fullpage";
 
-import Nav from './component/Nav';
-import Intro from './component/Intro';
-import Info from './component/Info';
-import './App.scss';
+import { Nav, Intro, Info } from "./component";
+import "./App.scss";
 
-function App () {
-
-  const [navClass, setNacClass] = useState('');
+function App() {
+  const [navClass, setNacClass] = useState("");
 
   const handleTrans = () => {
-    const bodyDOM = document.querySelector('body');
-    if (bodyDOM.className === 'fp-viewing-secondPage') {
-      setNacClass('dark');
-    } else {
-      setNacClass('');
-    }
-  }
+    const bodyDOM = document.querySelector("body");
+    setNacClass(bodyDOM.className === "fp-viewing-secondPage" ? "dark" : "");
+  };
 
   useEffect(() => {
-    window.addEventListener('transitionend', handleTrans);
-    return () => window.removeEventListener('transitionend', handleTrans);
+    window.addEventListener("transitionend", handleTrans);
+    return () => window.removeEventListener("transitionend", handleTrans);
   }, []);
 
   return (
     <>
-      <Nav navClass={navClass}/>
+      <Nav navClass={navClass} />
       <ReactFullpage
-        anchors={['firstPage', 'secondPage']}
+        anchors={["firstPage", "secondPage"]}
         render={({ state, fullpageApi }) => {
           return (
             <>
-              <div className='section' id="background">
+              <div className="section" id="background">
                 <Intro fullpageApi={fullpageApi} />
               </div>
-              <div className='section'>
+              <div className="section">
                 <Info />
               </div>
             </>

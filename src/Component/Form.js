@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React from 'react';
+import React from "react";
 
-import Progress from './Progress';
+import Progress from "./Progress";
 
 export default function Form({
   inputs,
@@ -16,13 +16,25 @@ export default function Form({
 
   dropdownDataFromList,
   dropdownDataToList,
-  handleUpdateMap,
+  handleUpdateMap
 }) {
   let count = 0;
-  const { classOfTo, classOfItem, classOfDate, classOfName, classOfSubmit } = uiState;
-  const countList = [classOfTo, classOfItem, classOfDate, classOfName, classOfSubmit];
+  const {
+    classOfTo,
+    classOfItem,
+    classOfDate,
+    classOfName,
+    classOfSubmit
+  } = uiState;
+  const countList = [
+    classOfTo,
+    classOfItem,
+    classOfDate,
+    classOfName,
+    classOfSubmit
+  ];
   for (let item of countList) {
-    if (item === 'active') {
+    if (item === "active") {
       count++;
     }
   }
@@ -31,12 +43,15 @@ export default function Form({
   return (
     <div id="form-container">
       <form id="form" className={uiState.classOfForm} onSubmit={handleSubmit}>
-        <Progress width={width} classOfProgress={uiState.classOfProgress}/>
+        <Progress width={width} classOfProgress={uiState.classOfProgress} />
         <label className={uiState.classOfFrom}>
           I WANT TO MOVE FROM:
           <br />
           <datalist id="dropdownDataFromList">
-            {dropdownDataFromList && dropdownDataFromList.map(item => <option key={item} value={item} />)}
+            {dropdownDataFromList &&
+              dropdownDataFromList.map(item => (
+                <option key={item} value={item} />
+              ))}
           </datalist>
           <input
             type="text"
@@ -47,9 +62,9 @@ export default function Form({
             onChange={handleChange}
             onKeyDown={e => {
               handleKeyPressForUi(e);
-              handleUpdateMap(e)
+              handleUpdateMap(e);
             }}
-            autoComplete='off'
+            autoComplete="off"
             required
           />
         </label>
@@ -57,7 +72,10 @@ export default function Form({
           I WANT TO MOVE TO:
           <br />
           <datalist id="dropdownDataToList">
-            {dropdownDataToList && dropdownDataToList.map(item => <option key={item} value={item} />)}
+            {dropdownDataToList &&
+              dropdownDataToList.map(item => (
+                <option key={item} value={item} />
+              ))}
           </datalist>
           <input
             type="text"
@@ -68,9 +86,9 @@ export default function Form({
             onChange={handleChange}
             onKeyDown={e => {
               handleKeyPressForUi(e);
-              handleUpdateMap(e)
+              handleUpdateMap(e);
             }}
-            autoComplete='off'
+            autoComplete="off"
             required
           />
         </label>
@@ -85,12 +103,14 @@ export default function Form({
               handleSelectionChangeForUi(e);
             }}
             onKeyDown={e => {
-              if (e.key === 'Tab') {
+              if (e.key === "Tab") {
                 e.preventDefault();
               }
             }}
           >
-            <option value="default" defaultChecked>Choose Your Moving Item Size</option>
+            <option value="default" defaultChecked>
+              Choose Your Moving Item Size
+            </option>
             <option value="size-i">Items that fit into a SUV</option>
             <option value="size-ii">Sofa, bed frame, etc</option>
             <option value="size-iii">Studio or one bedroom</option>
@@ -107,16 +127,26 @@ export default function Form({
               handleSelectionChangeForUi(e);
             }}
             onKeyDown={e => {
-              if (e.key === 'Tab') {
+              if (e.key === "Tab") {
                 e.preventDefault();
               }
             }}
           >
-            <option value="default" defaultChecked>Choose Your Moving Date</option>
-            <option value="07/19/2019/0900AM-1200AM">07/19/2019 --- 09:00AM - 12:OOAM --- $30</option>
-            <option value="07/20/2019/0900AM-1200AM">07/20/2019 --- 09:00AM - 12:OOAM --- $30</option>
-            <option value="07/21/2019/0900AM-1200AM">07/21/2019 --- 09:00AM - 12:OOAM --- $30</option>
-            <option value="07/22/2019/0900AM-1200AM">07/22/2019 --- 09:00AM - 12:OOAM --- $30</option>
+            <option value="default" defaultChecked>
+              Choose Your Moving Date
+            </option>
+            <option value="07/19/2019/0900AM-1200AM">
+              07/19/2019 --- 09:00AM - 12:OOAM --- $30
+            </option>
+            <option value="07/20/2019/0900AM-1200AM">
+              07/20/2019 --- 09:00AM - 12:OOAM --- $30
+            </option>
+            <option value="07/21/2019/0900AM-1200AM">
+              07/21/2019 --- 09:00AM - 12:OOAM --- $30
+            </option>
+            <option value="07/22/2019/0900AM-1200AM">
+              07/22/2019 --- 09:00AM - 12:OOAM --- $30
+            </option>
             <option value="none-works">None works</option>
           </select>
         </label>
@@ -153,7 +183,7 @@ export default function Form({
         <label className={uiState.classOfName}>
           I AM:
           <br />
-          <div className='name-phone'>
+          <div className="name-phone">
             <input
               type="text"
               className="name"
@@ -196,11 +226,14 @@ export default function Form({
           />
         </label>
         <label className={uiState.classOfNext}>
-          {((uiState.classOfItem === '' || uiState.classOfDate === '') && uiState.classOfName === 'none') ? 'Select to move on' : 'Enter to move on'}
-          <div className='next-ani'>&#8595;</div>
+          {(uiState.classOfItem === "" || uiState.classOfDate === "") &&
+          uiState.classOfName === "none"
+            ? "Select to move on"
+            : "Enter to move on"}
+          <div className="next-ani">&#8595;</div>
         </label>
       </form>
-      <div className={uiState.classOfAfterSubmit} >
+      <div className={uiState.classOfAfterSubmit}>
         <div id="thanks">{`THANKS, ${inputs.firstName.toUpperCase()}. WE WILL CONFIRM WITH YOU SHORTLY.`}</div>
       </div>
     </div>
