@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { TOKEN } from "../utilities";
+
 export default function useGeocoding(query) {
   const [dropdownData, setDropdownData] = useState(null);
 
@@ -9,7 +11,7 @@ export default function useGeocoding(query) {
 
   const loadDropdownDataFrom = (query, setFn) => {
     if (query === "") return;
-    let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=pk.eyJ1IjoiemFjaHp3eSIsImEiOiJjanczeWZ1aGYxOW05M3pwczRkZ3A1NGJ4In0.BFX8cW_ZygtvgjIvrwhT1g`;
+    let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${TOKEN}`;
     fetch(url)
       .then(response => response.json())
       .then(json => {
