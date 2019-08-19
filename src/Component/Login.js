@@ -3,6 +3,7 @@ import { GoogleLogin } from "react-google-login";
 import { GraphQLClient } from "graphql-request";
 
 import Context from "../context";
+import { BASE_URL } from "../client";
 
 const ME_QUERY = `
 {
@@ -20,11 +21,20 @@ const Login = () => {
 
   const onSuccess = async googleUser => {
     const idToken = googleUser.getAuthResponse().id_token;
-    const client = new GraphQLClient("http://localhost:4000/graphql", {
+    const client = new GraphQLClient(BASE_URL, {
       headers: { authorization: idToken }
     });
     const data = await client.request(ME_QUERY);
     dispatch({ type: "LOGIN_USER", payload: data.me });
+    dispatch({
+      type: "IS_LOGGED_IN",
+      payload: googleUser.isSignedIn()
+    });
+  };
+
+  const onFailure = err => {
+    console.error("Error logging in", err);
+    dispatch({ type: "IS_LOGGED_IN", payload: false });
   };
 
   return (
@@ -36,6 +46,7 @@ const Login = () => {
         </button>
       )}
       onSuccess={onSuccess}
+      onFailure={onFailure}
       isSignedIn={true}
     />
   );

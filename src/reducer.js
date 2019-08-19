@@ -5,9 +5,15 @@ const reducer = (state, action) => {
         ...state,
         currentUser: action.payload
       };
+    case "IS_LOGGED_IN":
+      return {
+        ...state,
+        isAuth: action.payload
+      };
     case "LOGOUT_USER":
       return {
         ...state,
+        isAuth: false,
         currentUser: null
       };
     default:
