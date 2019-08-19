@@ -6,12 +6,12 @@ export default function useUiState(initUiState) {
   const handleKeyPressForUi = e => {
     const { name, value } = e.target;
 
-    if (value === "" && e.key === "Tab") {
+    if (value.trim() === "" && e.key === "Tab") {
       e.preventDefault();
       return;
     }
 
-    if ((value !== "" && e.key === "Enter") || e.key === "Tab") {
+    if ((value.trim() !== "" && e.key === "Enter") || e.key === "Tab") {
       switch (name) {
         case "from":
           setUiState({ ...uiState, classOfTo: "active" });

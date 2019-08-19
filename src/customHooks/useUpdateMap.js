@@ -75,7 +75,7 @@ export default function useUpdataMap(dropdownDataFrom, dropdownDataTo) {
 
   const handleUpdateMap = e => {
     const { name, value } = e.target;
-    if (e.key === "Enter" && value !== "") {
+    if (e.key === "Enter" && value.trim() !== "") {
       if (name === "from") {
         const place = dropdownDataFrom[0];
         setLocation({

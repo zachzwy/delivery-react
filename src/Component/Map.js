@@ -101,9 +101,9 @@ export default function Map({
 Map.propTypes = {
   viewport: PropTypes.object.isRequired,
   handleViewportChange: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.object,
   points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number).isRequired)
     .isRequired,
-  duration: PropTypes.number.isRequired,
-  loadingTime: PropTypes.number.isRequired
+  duration: PropTypes.number,
+  loadingTime: PropTypes.number
 };

@@ -12,14 +12,11 @@ const Nav = ({ navClass }) => {
     <nav className={navClass}>
       <span>MY SETTLE DOWN</span>
       <ul>
+        <li>{state.currentUser ? <Logout /> : <Login />}</li>
         <li className="nav-hide">
-          {state.currentUser ? <Logout /> : <Login />}
-        </li>
-        <li className="nav-hide">
-          <a>EXPLORE</a>
-        </li>
-        <li>
-          <a>ABOUT</a>
+          <a href="https://zachzwy.github.io/delivery-react/#secondPage">
+            EXPLORE
+          </a>
         </li>
       </ul>
     </nav>
