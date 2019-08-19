@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React from "react";
+import React, { useContext } from "react";
 
 import Progress from "./Progress";
+import Context from "../context";
 
 export default function Form({
   inputs,
@@ -18,27 +19,16 @@ export default function Form({
   dropdownDataToList,
   handleUpdateMap
 }) {
+  const { state } = useContext(Context);
   let count = 0;
-  const {
-    classOfTo,
-    classOfItem,
-    classOfDate,
-    classOfName,
-    classOfSubmit
-  } = uiState;
-  const countList = [
-    classOfTo,
-    classOfItem,
-    classOfDate,
-    classOfName,
-    classOfSubmit
-  ];
+  const { classOfTo, classOfItem, classOfDate, classOfSubmit } = uiState;
+  const countList = [classOfTo, classOfItem, classOfDate, classOfSubmit];
   for (let item of countList) {
     if (item === "active") {
       count++;
     }
   }
-  const width = count / 5;
+  const width = count / 4;
 
   return (
     <div id="form-container">
@@ -180,62 +170,28 @@ export default function Form({
           <span className="time-end-span">TO:</span>
           <span id="quote">{inputs.quote}</span>
         </label>
-        <label className={uiState.classOfName}>
-          I AM:
-          <br />
-          <div className="name-phone">
-            <input
-              type="text"
-              className="name"
-              name="firstName"
-              value={inputs.firstName}
-              placeholder="First name..."
-              onChange={handleChange}
-              onKeyDown={handleKeyPressForUi}
-              required
-            />
-            <input
-              type="text"
-              name="lastName"
-              className="name"
-              value={inputs.lastName}
-              placeholder="Last name..."
-              onChange={handleChange}
-              onKeyDown={handleKeyPressForUi}
-              required
-            />
-            <input
-              type="tel"
-              name="phone"
-              className="phone"
-              value={inputs.phone}
-              placeholder="Phone number..."
-              onChange={handleChange}
-              onKeyDown={handleKeyPressForUi}
-              required
-            />
-          </div>
-        </label>
         <label className={uiState.classOfSubmit}>
           <input
             type="button"
             name="submit"
             className="submit"
-            value="SUBMIT"
+            value={state.currentUser ? "SUBMIT" : "LOGIN TO SUBMIT"}
+            disabled={!state.currentUser}
             onClick={handleClickSubmit}
           />
         </label>
         <label className={uiState.classOfNext}>
-          {(uiState.classOfItem === "" || uiState.classOfDate === "") &&
-          uiState.classOfName === "none"
+          {uiState.classOfItem === "active"
             ? "Select to move on"
             : "Enter to move on"}
           <div className="next-ani">&#8595;</div>
         </label>
       </form>
-      <div className={uiState.classOfAfterSubmit}>
-        <div id="thanks">{`THANKS, ${inputs.firstName.toUpperCase()}. WE WILL CONFIRM WITH YOU SHORTLY.`}</div>
-      </div>
+      {state.currentUser ? (
+        <div className={uiState.classOfAfterSubmit}>
+          <div id="thanks">{`THANKS, ${state.currentUser.name.toUpperCase()}. WE WILL CONFIRM WITH YOU SHORTLY.`}</div>
+        </div>
+      ) : null}
     </div>
   );
 }

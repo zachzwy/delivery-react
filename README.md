@@ -40,6 +40,3 @@ src
 ```
 
 ### Todo List
-
-1. Create Backend
-2. Create Database

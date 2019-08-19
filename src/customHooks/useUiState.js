@@ -19,15 +19,6 @@ export default function useUiState(initUiState) {
         case "to":
           setUiState({ ...uiState, classOfItem: "active" });
           break;
-        case "firstName":
-        case "lastName":
-        case "phone":
-          setUiState({
-            ...uiState,
-            classOfSubmit: "active",
-            classOfNext: "none"
-          });
-          break;
         default:
           break;
       }
@@ -43,7 +34,8 @@ export default function useUiState(initUiState) {
       case "dateOption":
         setUiState({
           ...uiState,
-          classOfName: "active",
+          classOfSubmit: "active",
+          classOfNext: "none",
           classOfCustomizedDate: value === "none-works" ? "active" : "none"
         });
         return;
@@ -59,7 +51,6 @@ export default function useUiState(initUiState) {
       classOfItem: "none",
       classOfDate: "none",
       classOfCustomizedDate: "none",
-      classOfName: "none",
       classOfSubmit: "none",
       classOfNext: "none",
       classOfProgress: "none",

@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
 import { Nav, Intro, Info } from "./component";
+import Context from "./context";
+import reducer from "./reducer";
 import "./App.scss";
 
 function App() {
-  const [navClass, setNacClass] = useState("");
+  const [navClass, setNavClass] = useState("");
+  const initialState = useContext(Context);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleTrans = () => {
     const bodyDOM = document.querySelector("body");
-    setNacClass(bodyDOM.className === "fp-viewing-secondPage" ? "dark" : "");
+    setNavClass(bodyDOM.className === "fp-viewing-secondPage" ? "dark" : "");
   };
 
   useEffect(() => {
@@ -18,7 +22,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Context.Provider value={{ state, dispatch }}>
       <Nav navClass={navClass} />
       <ReactFullpage
         anchors={["firstPage", "secondPage"]}
@@ -35,7 +39,7 @@ function App() {
           );
         }}
       />
-    </>
+    </Context.Provider>
   );
 }
 

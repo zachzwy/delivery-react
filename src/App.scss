@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Cormorant+Garamond:300|Lora&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Cormorant+Garamond:300|Lora&display=swap");
 
 $text-color-dark: black;
 $text-color-light: white;
 $font-size-small: 11px;
 $transition-in: all 0.3s ease-in;
 $transition-out: all 0.3s ease-out;
-$titleFont: 'Cormorant Garamond', 'serif';
+$titleFont: "Cormorant Garamond", "serif";
 $titleSize: 45px;
 $max-width: 600px;
 $max-height: 650px;
@@ -21,7 +21,10 @@ $max-height: 650px;
 // ------------------ nav starts here-------------------
 
 .dark {
-  span, ul li a {
+  span,
+  ul li a,
+  .login-button,
+  .logout-button {
     color: $text-color-dark;
   }
 }
@@ -51,23 +54,29 @@ nav {
       $color: #adadad;
 
       cursor: pointer;
-      background: linear-gradient(
-        to right, 
-        $color 0%,
-        $color 100%
-        ) center bottom no-repeat; 
+      background: linear-gradient(to right, $color 0%, $color 100%) center
+        bottom no-repeat;
       transition: $transition-out;
       padding-bottom: $height + $space;
       background-size: 0 $height;
 
-      &:hover, &.active {
-        background-size: 100% $height; 
-        transition: $transition-in
+      &:hover,
+      &.active {
+        background-size: 100% $height;
+        transition: $transition-in;
       }
 
       a {
         color: $text-color-light;
         text-decoration: none;
+      }
+
+      .login-button,
+      .logout-button {
+        border: 0px;
+        color: $text-color-light;
+        background-color: transparent;
+        cursor: pointer;
       }
     }
   }
@@ -121,7 +130,7 @@ nav {
     border-radius: 2px;
     color: $text-color-light;
     transition: $transition-out;
-    
+
     &:hover {
       cursor: pointer;
       background-color: #5e5e5e;
@@ -130,7 +139,8 @@ nav {
   }
 }
 
-@media screen and (max-width: $max-width), screen and (max-height: $max-height) {
+@media screen and (max-width: $max-width),
+  screen and (max-height: $max-height) {
   #intro {
     width: 80%;
     position: relative;
@@ -143,15 +153,14 @@ nav {
 
 // ------------------ secondPage starts here----------
 
-
-
 #info {
   height: 100vh;
   width: 100vw;
   position: relative;
 }
 
-#form-container, #map-container {
+#form-container,
+#map-container {
   position: relative;
   display: inline-block;
   width: 50%;
@@ -197,7 +206,8 @@ nav {
     font-size: $font-size-small;
   }
 
-  input, select {
+  input,
+  select {
     -webkit-appearance: none;
     margin-top: 5px;
     padding-left: 8px;
@@ -213,7 +223,7 @@ nav {
     background-color: rgb(215, 215, 215);
     width: 300px;
     height: 2px;
-    
+
     .bar {
       background-color: black;
       height: 2px;
@@ -325,7 +335,10 @@ nav {
   font-weight: bold;
 }
 
-.duration, .loading, .unloading, .time-in-total {
+.duration,
+.loading,
+.unloading,
+.time-in-total {
   padding: 2px 5px;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
@@ -333,7 +346,8 @@ nav {
   font-size: $font-size-small;
 }
 
-.loading, .unloading {
+.loading,
+.unloading {
   position: relative;
   right: 45px;
 }
@@ -352,17 +366,19 @@ nav {
 }
 
 @media screen and (max-width: $max-width) {
-  #form-container, #map-container {
+  #form-container,
+  #map-container {
     width: 100%;
     height: 50%;
   }
 }
 
-@media screen and (max-width: $max-width), screen and (max-height: $max-height) {
+@media screen and (max-width: $max-width),
+  screen and (max-height: $max-height) {
   #map-container {
     padding: 65px 40px 40px 40px;
   }
-  
+
   #form-container {
     display: flex;
     align-items: center;
@@ -382,8 +398,9 @@ nav {
       margin: 5px 0;
       font-size: $font-size-small;
     }
-  
-    input, select {
+
+    input,
+    select {
       -webkit-appearance: none;
       margin-top: 0px;
       padding-left: 8px;
@@ -394,7 +411,8 @@ nav {
       background-color: white;
     }
 
-    .time-start, .time-end {
+    .time-start,
+    .time-end {
       margin-top: 4px;
     }
 
@@ -402,7 +420,8 @@ nav {
       display: flex;
       justify-content: space-between;
 
-      .name, .phone {
+      .name,
+      .phone {
         width: 40% !important;
       }
     }
