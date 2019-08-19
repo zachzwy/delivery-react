@@ -14,6 +14,10 @@ mongoose
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  cors: {
+    origin: "*", // <- allow request from all domains
+    credentials: true // <- enable CORS response for requests with credentials (cookies, http authentication)
+  },
   context: async ({ req }) => {
     let authToken = null;
     let currentUser = null;
