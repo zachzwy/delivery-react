@@ -39,7 +39,7 @@ const Login = () => {
 
   return (
     <GoogleLogin
-      clientId="1054974669385-6ufp10fv66no5f7u99ndhdi66mqauk9s.apps.googleusercontent.com"
+      clientId="766269806662-4gfqgidctg4vgrm4nki36g8kt9feo8t1.apps.googleusercontent.com"
       render={({ onClick }) => (
         <button className="login-button" onClick={onClick}>
           LOGIN
