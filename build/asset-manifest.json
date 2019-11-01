@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/delivery-react/static/css/main.2737f9ac.chunk.css",
+    "main.js": "/delivery-react/static/js/main.015dde62.chunk.js",
+    "main.js.map": "/delivery-react/static/js/main.015dde62.chunk.js.map",
+    "runtime~main.js": "/delivery-react/static/js/runtime~main.5ce49262.js",
+    "runtime~main.js.map": "/delivery-react/static/js/runtime~main.5ce49262.js.map",
+    "static/css/2.1511f479.chunk.css": "/delivery-react/static/css/2.1511f479.chunk.css",
+    "static/js/2.26129d63.chunk.js": "/delivery-react/static/js/2.26129d63.chunk.js",
+    "static/js/2.26129d63.chunk.js.map": "/delivery-react/static/js/2.26129d63.chunk.js.map",
+    "index.html": "/delivery-react/index.html",
+    "precache-manifest.e3b83992147478070c34523c7ee06c06.js": "/delivery-react/precache-manifest.e3b83992147478070c34523c7ee06c06.js",
+    "service-worker.js": "/delivery-react/service-worker.js",
+    "static/css/2.1511f479.chunk.css.map": "/delivery-react/static/css/2.1511f479.chunk.css.map",
+    "static/css/main.2737f9ac.chunk.css.map": "/delivery-react/static/css/main.2737f9ac.chunk.css.map",
+    "static/media/App.scss": "/delivery-react/static/media/background.e7993762.png"
+  }
+}
