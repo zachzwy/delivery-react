@@ -12,14 +12,16 @@ mongoose
   .catch(err => console.error(err));
 
 const server = new ApolloServer({
+  typeDefs,
+  resolvers,
   cors: true,
   // cors: {
   //   // origin: "*", // <- allow request from all domains
   //   origin: "https://zachzwy.github.io",
   //   credentials: true // <- enable CORS response for requests with credentials (cookies, http authentication)
   // },
-  typeDefs,
-  resolvers,
+  playground: true,
+  introspection: true,
   context: async ({ req }) => {
     let authToken = null;
     let currentUser = null;

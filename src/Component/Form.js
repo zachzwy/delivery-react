@@ -126,16 +126,16 @@ export default function Form({
               Choose Your Moving Date
             </option>
             <option value="07/19/2019/0900AM-1200AM">
-              08/19/2019 --- 09:00AM - 12:OOAM --- $30
+              10/19/2019 --- 09:00AM - 12:OOAM --- $30
             </option>
             <option value="07/20/2019/0900AM-1200AM">
-              08/20/2019 --- 09:00AM - 12:OOAM --- $30
+              10/20/2019 --- 09:00AM - 12:OOAM --- $30
             </option>
             <option value="07/21/2019/0900AM-1200AM">
-              08/21/2019 --- 09:00AM - 12:OOAM --- $30
+              10/21/2019 --- 09:00AM - 12:OOAM --- $30
             </option>
             <option value="07/22/2019/0900AM-1200AM">
-              08/22/2019 --- 09:00AM - 12:OOAM --- $30
+              10/22/2019 --- 09:00AM - 12:OOAM --- $30
             </option>
             <option value="none-works">None works</option>
           </select>
