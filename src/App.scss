@@ -1,0 +1,431 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Cormorant+Garamond:300|Lora&display=swap");
+
+$text-color-dark: black;
+$text-color-light: white;
+$font-size-small: 11px;
+$transition-in: all 0.3s ease-in;
+$transition-out: all 0.3s ease-out;
+$titleFont: "Cormorant Garamond", "serif";
+$titleSize: 45px;
+$max-width: 600px;
+$max-height: 650px;
+
+* {
+  // outline: 0.5px solid black;
+  font-family: Open Sans;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+// ------------------ nav starts here-------------------
+
+.dark {
+  span,
+  ul li a,
+  .login-button,
+  .logout-button {
+    color: $text-color-dark;
+  }
+}
+
+nav {
+  position: fixed;
+  width: 100vw;
+  font-size: $font-size-small;
+  padding: 23px 40px;
+  z-index: 10;
+
+  span {
+    display: inline-block;
+    color: $text-color-light;
+  }
+
+  ul {
+    float: right;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      margin-left: 60px;
+
+      $height: 1px;
+      $space: 2px;
+      $color: #adadad;
+
+      cursor: pointer;
+      background: linear-gradient(to right, $color 0%, $color 100%) center
+        bottom no-repeat;
+      transition: $transition-out;
+      padding-bottom: $height + $space;
+      background-size: 0 $height;
+
+      &:hover,
+      &.active {
+        background-size: 100% $height;
+        transition: $transition-in;
+      }
+
+      a {
+        color: $text-color-light;
+        text-decoration: none;
+      }
+
+      .login-button,
+      .logout-button {
+        border: 0px;
+        color: $text-color-light;
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $max-width) {
+  .nav-hide {
+    display: none;
+  }
+}
+
+// ------------------ nav ends here-------------------
+
+// ------------------ firstPage starts here-------------
+
+.fp-tableCell {
+  vertical-align: 0 !important;
+}
+
+.background {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-image: url(./background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.intro {
+  width: 40%;
+  position: relative;
+  left: 150px;
+  top: 38vh;
+  color: $text-color-light;
+
+  p {
+    font-size: $font-size-small;
+  }
+
+  h1 {
+    font-family: $titleFont;
+    margin: 20px 0;
+    font-size: $titleSize;
+  }
+
+  button {
+    background-color: transparent;
+    width: 100px;
+    height: 30px;
+    border: 1px solid $text-color-light;
+    border-radius: 2px;
+    color: $text-color-light;
+    transition: $transition-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #5e5e5e;
+      transition: $transition-in;
+    }
+  }
+}
+
+@media screen and (max-width: $max-width),
+  screen and (max-height: $max-height) {
+  .intro {
+    width: 80%;
+    position: relative;
+    left: 10%;
+    top: 25vh;
+  }
+}
+
+// ------------------ firstPage ends here-------------
+
+// ------------------ secondPage starts here----------
+
+.info {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.form-container,
+.map-container {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+}
+
+.map-container {
+  float: left;
+  padding: 65px 40px 40px 40px;
+}
+
+.form-container {
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 75px 100px;
+}
+
+.map {
+  height: 100%;
+  box-shadow: 5px 5px 20px grey;
+  transition: $transition-out;
+
+  &:hover {
+    box-shadow: 15px 15px 50px grey;
+    transition: $transition-in;
+  }
+}
+
+.ctrl-zoom {
+  color: #e3e3e3;
+  position: relative;
+  left: 5px;
+  font-size: $font-size-small;
+  z-index: 10;
+}
+
+.form {
+  label {
+    display: block;
+    margin: 20px 0;
+    font-size: $font-size-small;
+  }
+
+  input,
+  select {
+    -webkit-appearance: none;
+    margin-top: 5px;
+    padding-left: 8px;
+    width: 300px;
+    height: 35px;
+    border: 1px solid $text-color-dark;
+    border-radius: 0;
+    background-color: white;
+  }
+
+  .progress {
+    display: inline-block;
+    background-color: rgb(215, 215, 215);
+    width: 300px;
+    height: 2px;
+
+    .bar {
+      background-color: black;
+      height: 2px;
+      transition: $transition-out;
+    }
+  }
+
+  .date {
+    // padding-left: 40px;
+
+    // &-span {
+    //   position: absolute;
+    //   right: 291px;
+    // }
+  }
+
+  .time-start {
+    margin-right: -29px;
+    width: 130px;
+    padding-left: 45px;
+
+    &-span {
+      position: relative;
+      right: 92px;
+    }
+  }
+
+  .time-end {
+    margin-right: -29px;
+    width: 113px;
+    padding-left: 27px;
+
+    &-span {
+      position: relative;
+      right: 76px;
+    }
+  }
+
+  .quote {
+    position: relative;
+    left: 20px;
+  }
+
+  .name {
+    width: 90px;
+    margin-right: 6px;
+  }
+
+  .phone {
+    width: 108px;
+  }
+
+  .submit {
+    background-color: #f5f5f5;
+    transition: $transition-out;
+
+    &:hover {
+      background-color: #c4c4c4;
+      transition: $transition-in;
+    }
+  }
+}
+
+.none {
+  position: absolute;
+  top: 9999px;
+  opacity: 0;
+  transition: $transition-out;
+}
+
+.active {
+  opacity: 1;
+  transition: opacity 1.5s linear;
+}
+
+.next {
+  text-align: center;
+  color: #afafaf;
+  &-ani {
+    font-size: 15px;
+    text-align: center;
+    animation-name: nextAni;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    position: relative;
+  }
+}
+
+@keyframes nextAni {
+  0% {
+    top: 0px;
+  }
+  50% {
+    top: 30px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+.pin {
+  background: -webkit-linear-gradient(#ff7d7d, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  position: relative;
+  bottom: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.duration,
+.loading,
+.unloading,
+.time-in-total {
+  padding: 2px 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  box-shadow: 4px 4px 5px rgb(57, 57, 57);
+  font-size: $font-size-small;
+}
+
+.loading,
+.unloading {
+  position: relative;
+  right: 45px;
+}
+
+.time-in-total-position {
+  position: absolute;
+  top: 67px;
+  left: 45px;
+  z-index: 10;
+}
+
+.thanks {
+  font-size: $font-size-small;
+  position: relative;
+  bottom: 20vh;
+}
+
+@media screen and (max-width: $max-width) {
+  .form-container,
+  .map-container {
+    width: 100%;
+    height: 50%;
+  }
+}
+
+@media screen and (max-width: $max-width),
+  screen and (max-height: $max-height) {
+  .map-container {
+    padding: 65px 40px 40px 40px;
+  }
+
+  .form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 65px 40px;
+  }
+
+  .form {
+    width: 100%;
+
+    .progress {
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+      font-size: $font-size-small;
+    }
+
+    input,
+    select {
+      -webkit-appearance: none;
+      margin-top: 0px;
+      padding-left: 8px;
+      width: 100%;
+      height: 25px;
+      border: 1px solid $text-color-dark;
+      border-radius: 0;
+      background-color: white;
+    }
+
+    .time-start,
+    .time-end {
+      margin-top: 4px;
+    }
+
+    .name-phone {
+      display: flex;
+      justify-content: space-between;
+
+      .name,
+      .phone {
+        width: 40% !important;
+      }
+    }
+  }
+}
+
+// ------------------ secondPage ends here----------
